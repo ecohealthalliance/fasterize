@@ -1,0 +1,34 @@
+language: r
+
+r:
+- oldrel
+- release
+- devel
+
+os:
+- linux
+- osx
+
+sudo: false
+cache: packages
+
+r_packages:
+- covr
+
+warnings_are_errors: true
+env:
+  matrix:
+    - RVERSION=oldrel
+    - RVERSION=release
+    - RVERSION=devel
+
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+notifications:
+  email:
+    recipients:
+    - ross@ecohealthalliance.org
+    on_success: change
+    on_failure: change

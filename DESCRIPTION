@@ -1,0 +1,19 @@
+Package: fasterize
+Title: Fast sf-to-raster conversion
+Version: 0.1.0
+Author: Noam Ross
+Maintainer: Noam Ross <ross@ecohealthalliance.org>
+Description: Fast sf-to-raster conversion
+License: MIT + file LICENSE
+LazyData: true
+URL: https://github.com/noamross/fasterize
+BugReports: https://github.com/noamross/fasterize/issues
+RoxygenNote: 6.0.1
+Suggests:
+    testthat
+LinkingTo: Rcpp
+Imports: 
+    Rcpp,
+    RcppArmadillo,
+    raster,
+    sf
