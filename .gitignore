@@ -1,3 +1,9 @@
 .Rproj.user
 .Rhistory
 .RData
+Mammals_Terrestrial/*.*
+Mammals_Terrestrial.zip
+*.prof
+README.html
+*_cache/
+test_script.R

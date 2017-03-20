@@ -17,6 +17,8 @@ cache:
 
 build_script:
   - travis-tool.sh install_deps
+  - travis-tool.sh r_binary_install rgeos
+  - travis-tool.sh r_binary_install rgdal
 
 test_script:
   - travis-tool.sh run_tests

@@ -7,21 +7,25 @@ r:
 
 os:
 - linux
-- osx
 
-sudo: false
+sudo: true
+dist: trusty
+
 cache: packages
+
+r_github_packages:
+ - edzer/sfr
 
 r_packages:
 - covr
 
-warnings_are_errors: true
-env:
-  matrix:
-    - RVERSION=oldrel
-    - RVERSION=release
-    - RVERSION=devel
+before_install:
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+  - sudo apt-get --yes --force-yes update -qq
+  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
+  - Rscript -e 'update.packages(ask = FALSE)'
 
+warnings_are_errors: true
 
 after_success:
   - Rscript -e 'covr::codecov()'

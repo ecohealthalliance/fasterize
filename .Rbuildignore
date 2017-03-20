@@ -5,3 +5,12 @@
 ^.travis.yml$
 ^appveyor.yml$
 ^appveyor\.yml$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+^.*_cache$
+^.*\.prof$
+^.*\.zip$
+^Mammals_Terrestrial$
+^\.lintr$
+^test_script.R$
+^codecov\.yml$
