@@ -71,10 +71,13 @@ Let's compare `fasterize()` to `raster::rasterize()`:
 pols_r <- as(pols, "Spatial")
 bench <- microbenchmark::microbenchmark(
   rasterize = r <- raster::rasterize(pols_r, r, field = "value", fun="sum"),
-  fasterize = f <- fasterize(pols, r, field = "value", fun="sum")
+  fasterize = f <- fasterize(pols, r, field = "value", fun="sum"),
+  unit = "ms"
 )
-print(bench, digits = 2)
-boxplot(bench,  ylab="Execution time in milliseconds", xlab="", log=TRUE)
+print(bench, digits = 3)
+options(scipen = 5)
+boxplot(bench,  ylab="Execution time in milliseconds",
+        unit = "ms", xlab="", log=TRUE)
 ```
 
 How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate
@@ -89,10 +92,10 @@ unzip("Mammals_Terrestrial.zip", exdir = "Mammals_Terrestrial")
 ```{r so-damn-fast, cache=TRUE}
 mammal_shapes <- st_read("Mammals_Terrestrial")
 mammal_raster <- raster(mammal_shapes, res = 1/6)
-system.time(
-  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1, fun="sum")
-)
-par(mar=c(0,0,0,1))
+bench2 <- microbenchmark::microbenchmark(
+  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1, fun="sum"),
+  times=20, unit = "s")
+print(bench2, digits=3)
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
 

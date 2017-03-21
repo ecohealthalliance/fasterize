@@ -3,8 +3,9 @@
 
 #include <RcppArmadillo.h>
 
-arma::mat rasterize_polygons(Rcpp::List &polygons,
-                             Rcpp::NumericVector &field_values,
-                             Rcpp::List raster_info,
-                             double background);
+Rcpp::S4 rasterize_polygons(Rcpp::S4 &raster,
+                            Rcpp::List &polygons,
+                            Rcpp::NumericVector &field_values,
+                            Rcpp::List raster_info,
+                            double background);
 #endif

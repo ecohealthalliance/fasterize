@@ -9,13 +9,14 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
-arma::mat rasterize_polygons(Rcpp::List &polygons,
-                             Rcpp::NumericVector &field_values,
-                             Rcpp::List raster_info,
-                             double background) {
+Rcpp::S4 rasterize_polygons(Rcpp::S4 &raster,
+                            Rcpp::List &polygons,
+                            Rcpp::NumericVector &field_values,
+                            double background) {
 
   //Move this R list into a C++ struct
-  RasterInfo ras(raster_info);
+  RasterInfo ras(raster);
+  Rcpp::S4 rasterdata = raster.slot("data");
 
   //Create the empty raster to fill
   arma::mat raster_matrix(ras.nrow, ras.ncol);
@@ -33,6 +34,12 @@ arma::mat rasterize_polygons(Rcpp::List &polygons,
   if(!R_IsNA(background)) {
     raster_matrix.replace(NA_REAL, background);
   }
-  return raster_matrix;
 
+  rasterdata.slot("values") = raster_matrix.t();
+  rasterdata.slot("min") = raster_matrix.min();
+  rasterdata.slot("max") = raster_matrix.max();
+  rasterdata.slot("inmemory") = true;
+  rasterdata.slot("fromdisk") = false;
+  rasterdata.slot("haveminmax") = true;
+  return rasterdata;
 }

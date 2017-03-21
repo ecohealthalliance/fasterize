@@ -53,18 +53,21 @@ Let's compare `fasterize()` to `raster::rasterize()`:
 pols_r <- as(pols, "Spatial")
 bench <- microbenchmark::microbenchmark(
   rasterize = r <- raster::rasterize(pols_r, r, field = "value", fun="sum"),
-  fasterize = f <- fasterize(pols, r, field = "value", fun="sum")
+  fasterize = f <- fasterize(pols, r, field = "value", fun="sum"),
+  unit = "ms"
 )
-print(bench, digits = 2)
+print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr   min    lq  mean median    uq max neval cld
-    #>  rasterize 321.2 341.3 392.5  358.7 411.4 869   100   b
-    #>  fasterize   1.7   1.7   3.1    1.9   2.6  81   100  a
+    #>       expr     min      lq    mean  median      uq    max neval cld
+    #>  rasterize 347.599 369.086 566.915 419.953 466.610 2990.9   100   b
+    #>  fasterize   0.375   0.515   0.825   0.591   0.825    3.7   100  a
 
 ``` r
-boxplot(bench,  ylab="Execution time in milliseconds", xlab="", log=TRUE)
+options(scipen = 5)
+boxplot(bench,  ylab="Execution time in milliseconds",
+        unit = "ms", xlab="", log=TRUE)
 ```
 
 ![](inst/figs/readme-benchmark-1.png)
@@ -82,7 +85,7 @@ unzip("Mammals_Terrestrial.zip", exdir = "Mammals_Terrestrial")
 mammal_shapes <- st_read("Mammals_Terrestrial")
 ```
 
-    #> Reading layer `Mammals_Terrestrial' from data source `/Users/noamross/Dropbox (Personal)/projects/fasterize/Mammals_Terrestrial' using driver `ESRI Shapefile'
+    #> Reading layer `Mammals_Terrestrial' from data source `/Users/noamross/Dropbox (EHA)/projects/fasterize/Mammals_Terrestrial' using driver `ESRI Shapefile'
     #> converted into: MULTIPOLYGON
     #> Simple feature collection with 42714 features and 27 fields
     #> geometry type:  MULTIPOLYGON
@@ -93,16 +96,19 @@ mammal_shapes <- st_read("Mammals_Terrestrial")
 
 ``` r
 mammal_raster <- raster(mammal_shapes, res = 1/6)
-system.time(
-  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1, fun="sum")
-)
+bench2 <- microbenchmark::microbenchmark(
+  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1, fun="sum"),
+  times=20, unit = "s")
+print(bench2, digits=3)
 ```
 
-    #>    user  system elapsed 
-    #>   1.199   0.029   1.234
+    #> Unit: seconds
+    #>                                                                                   expr
+    #>  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1,      fun = "sum")
+    #>    min    lq  mean median    uq  max neval
+    #>  0.946 0.956 0.981  0.973 0.993 1.06    20
 
 ``` r
-par(mar=c(0,0,0,1))
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
 

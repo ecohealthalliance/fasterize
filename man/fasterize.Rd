@@ -7,8 +7,7 @@
 \alias{fasterize-package}
 \title{Rasterize an sf object of polygons}
 \usage{
-fasterize(polygons, raster, field = NULL, fun = "sum", crop = FALSE,
-  background = NA)
+fasterize(polygons, raster, field = NULL, fun = "sum", background = NA)
 }
 \arguments{
 \item{polygons}{an [sf::sf()] object with a geometry column of POLYGON and/or
@@ -25,9 +24,6 @@ providing a value for each of the polygons rasterized.}
 Currently only takes "sum", but future versions will provide other
 high-performance compiled functions as well as the ability to pass arbitrary
 R functions}
-
-\item{crop}{logical. If TRUE, the raster is cropped to the extent of the
-polygon object provided.}
 
 \item{background}{numeric. Value to put in the cells that are not covered by any of the features of x. Default is NA}
 }

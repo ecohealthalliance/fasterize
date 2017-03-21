@@ -50,9 +50,11 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
         xend = ceil((*it).x);
         for(xpix = xstart; xpix < xend; ++xpix) {
           //Trying to figure out how to avoid this test for every iteration
-          raster(yline, xpix) =
-            R_IsNA(raster(yline, xpix)) ?
-            poly_value : (raster(yline, xpix) + poly_value);
+          raster.at(yline, xpix) =
+            //it's probably dangerous to use Rcpp::internal
+            Rcpp::internal::Rcpp_IsNA(raster.at(yline, xpix)) ?
+            poly_value : (raster.at(yline, xpix) + poly_value);
+          // (raster.at(yline, xpix) + poly_value);
         }
       }
     }

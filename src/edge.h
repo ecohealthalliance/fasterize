@@ -5,16 +5,27 @@
 
 // A small object to hold basic info about raster dimensions
 struct RasterInfo {
-  double xmin, ymax, xres, yres;
+  double xmin, xmax, ymin, ymax, xres, yres;
   int nrow, ncol;
 
-  RasterInfo(Rcpp::List &raster_info) {
-    xmin = Rcpp::as<double>(raster_info["xmin"]);
-    ymax = Rcpp::as<double>(raster_info["ymax"]);
-    xres = Rcpp::as<double>(raster_info["xres"]);
-    yres = Rcpp::as<double>(raster_info["yres"]);
-    nrow = Rcpp::as<int>(raster_info["nrow"]);
-    ncol = Rcpp::as<int>(raster_info["ncol"]);
+  RasterInfo(Rcpp::S4 raster) {
+    Rcpp::S4 extent = raster.slot("extent");
+    xmin = extent.slot("xmin");
+    xmax = extent.slot("xmax");
+    ymin = extent.slot("ymin");
+    ymax = extent.slot("ymax");
+    nrow = raster.slot("nrows");
+    ncol = raster.slot("ncols");
+
+    if(raster.slot("rotated")) {
+      Rcpp::S4 rotation = raster.slot("rotation");
+      Rcpp::NumericVector geotrans = rotation.slot("geotrans");
+      xres = geotrans[2];
+      yres = geotrans[4];
+    } else {
+    xres = (xmax - xmin)/ncol;
+    yres = (ymax - ymin)/nrow;
+    }
   }
 };
 

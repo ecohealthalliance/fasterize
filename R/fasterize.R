@@ -13,8 +13,8 @@
 #' Currently only takes "sum", but future versions will provide other
 #' high-performance compiled functions as well as the ability to pass arbitrary
 #' R functions
-#' @param crop logical. If TRUE, the raster is cropped to the extent of the
-#' polygon object provided.
+# #' @param crop logical. If TRUE, the raster is cropped to the extent of the
+# #' polygon object provided.
 #' @param background numeric. Value to put in the cells that are not covered by any of the features of x. Default is NA
 #'
 #' @return A raster of the same size, extent, resolution and projection as the
@@ -36,41 +36,14 @@
 #' @importFrom sf st_as_sf st_crs st_sfc st_polygon st_intersection st_geometry
 #' @export
 fasterize <- function(polygons, raster, field=NULL, fun ="sum",
-                      crop=FALSE, background=NA) {
+                      background=NA) {
 
   polygons <- st_as_sf(polygons)
   check_inputs(polygons, raster, field, fun)
 
   #Set the raster projection to the polygon projection
   if (!is.na(st_crs(polygons))) {
-       raster::crs(raster) <- sp::CRS(st_crs(polygons)$proj4string)
-  }
-
-  raster_info <- list(
-    xmin = xmin(raster),
-    xmax = xmax(raster),
-    ymin = ymin(raster),
-    ymax = ymax(raster),
-    xres = res(raster)[1],
-    yres = res(raster)[2],
-    nrow = nrow(raster),
-    ncol = ncol(raster)
-  )
-
-
-  # Crop polygons to the extent of the raster. TODO: profile - seems klunky.
-  if(crop) {
-    extent_poly <- with(raster_info, {
-      st_sfc(
-        st_polygon(x = list(matrix(c(xmin, ymin,
-                                     xmax, ymin,
-                                     xmax, ymax,
-                                     xmin, ymax,
-                                     xmin, ymin), ncol=2, byrow = TRUE))),
-        crs <- st_crs(polygons))
-
-    })
-    polygons <- suppressWarnings(st_intersection(polygons, extent_poly))
+    raster::crs(raster) <- sp::CRS(st_crs(polygons)$proj4string)
   }
 
   #Calculate essential values to pass to the C functions
@@ -80,12 +53,12 @@ fasterize <- function(polygons, raster, field=NULL, fun ="sum",
 
 
   #Do the thing! Fast!
-  raster_matrix <- rasterize_polygons(geometry,
-                                      field_values,
-                                      raster_info,
-                                      background)
-
-  setValues(raster, raster_matrix)
+  raster@data <- rasterize_polygons(raster,
+                                    geometry,
+                                    field_values,
+                                    background)
+  dim(raster@data@values) <- NULL
+  return(raster)
 }
 
 get_fields <- function(polygons, field, n_polygons) {
@@ -108,7 +81,9 @@ check_inputs <- function(polygons, raster, field, fun) {
     stop("fasterize requires sf inputs for polygons")
   }
 
-  if(!all(st_is(polygons, c("POLYGON", "MULTIPOLYGON")))) {
+  if(!any(
+    class(st_geometry(polygons)) %in% c("sfc_MULTIPOLYGON", "sfc_POLYGON"))
+    ) {
     stop("fasterize currently only works on POLYGON and MULTIPOLYGON types")
   }
 

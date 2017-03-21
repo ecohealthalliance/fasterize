@@ -13,4 +13,5 @@
 ^Mammals_Terrestrial$
 ^\.lintr$
 ^test_script.R$
+^test.R$
 ^codecov\.yml$

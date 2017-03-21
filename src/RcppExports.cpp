@@ -7,16 +7,16 @@
 using namespace Rcpp;
 
 // rasterize_polygons
-arma::mat rasterize_polygons(Rcpp::List& polygons, Rcpp::NumericVector& field_values, Rcpp::List raster_info, double background);
-RcppExport SEXP fasterize_rasterize_polygons(SEXP polygonsSEXP, SEXP field_valuesSEXP, SEXP raster_infoSEXP, SEXP backgroundSEXP) {
+Rcpp::S4 rasterize_polygons(Rcpp::S4& raster, Rcpp::List& polygons, Rcpp::NumericVector& field_values, double background);
+RcppExport SEXP fasterize_rasterize_polygons(SEXP rasterSEXP, SEXP polygonsSEXP, SEXP field_valuesSEXP, SEXP backgroundSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::S4& >::type raster(rasterSEXP);
     Rcpp::traits::input_parameter< Rcpp::List& >::type polygons(polygonsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector& >::type field_values(field_valuesSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type raster_info(raster_infoSEXP);
     Rcpp::traits::input_parameter< double >::type background(backgroundSEXP);
-    rcpp_result_gen = Rcpp::wrap(rasterize_polygons(polygons, field_values, raster_info, background));
+    rcpp_result_gen = Rcpp::wrap(rasterize_polygons(raster, polygons, field_values, background));
     return rcpp_result_gen;
 END_RCPP
 }
