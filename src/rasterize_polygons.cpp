@@ -5,7 +5,7 @@
 #include "rasterize_polygons.h"
 
 // Rasterize set of polygons
-// Base on https://ezekiel.encs.vancouver.wsu.edu/~cs442/lectures/rasterization/polyfill/polyfill.pdf #nolnt
+// Based on https://ezekiel.encs.vancouver.wsu.edu/~cs442/lectures/rasterization/polyfill/polyfill.pdf #nolint
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
@@ -26,7 +26,7 @@ arma::mat rasterize_polygons(Rcpp::List &polygons,
   Rcpp::NumericVector::iterator i = field_values.begin();
 
   for(; p != polygons.end(); ++p, ++i) {
-    rasterize_polygon(raster_matrix, (*p), (*i), ras);
+    rasterize_polygon(raster_matrix, Rcpp::as<Rcpp::List>(*p)[0], (*i), ras);
   }
 
   //Fill in the empty cells
