@@ -1,5 +1,6 @@
 #include <RcppArmadillo.h>
 #include "edge.h"
+#include "pixelfn.h"
 #include "edgelist.h"
 #include "rasterize_polygon.h"
 #include "rasterize_polygons.h"
@@ -12,11 +13,13 @@
 Rcpp::S4 rasterize_polygons(Rcpp::S4 &raster,
                             Rcpp::List &polygons,
                             Rcpp::NumericVector &field_values,
+                            std::string fun,
                             double background) {
 
   //Move this R list into a C++ struct
   RasterInfo ras(raster);
   Rcpp::S4 rasterdata = raster.slot("data");
+  PixelFn pixel_function = set_pixelfn(fun);
 
   //Create the empty raster to fill
   arma::mat raster_matrix(ras.nrow, ras.ncol);
@@ -25,9 +28,11 @@ Rcpp::S4 rasterize_polygons(Rcpp::S4 &raster,
   //Rasterize each polygon
   Rcpp::List::iterator p = polygons.begin();
   Rcpp::NumericVector::iterator i = field_values.begin();
+  int layer = 0;
 
-  for(; p != polygons.end(); ++p, ++i) {
-    rasterize_polygon(raster_matrix, Rcpp::as<Rcpp::List>(*p)[0], (*i), ras);
+  for(; p != polygons.end(); ++p, ++i, ++layer) {
+    rasterize_polygon(raster_matrix, Rcpp::as<Rcpp::List>(*p)[0], (*i), layer,
+                      ras, pixel_function);
   }
 
   //Fill in the empty cells

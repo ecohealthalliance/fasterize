@@ -52,10 +52,12 @@ fasterize <- function(polygons, raster, field=NULL, fun ="sum",
   field_values <- get_fields(polygons, field, n_polygons)
 
 
+
   #Do the thing! Fast!
   raster@data <- rasterize_polygons(raster,
                                     geometry,
                                     field_values,
+                                    fun,
                                     background)
   dim(raster@data@values) <- NULL
   return(raster)
@@ -87,7 +89,7 @@ check_inputs <- function(polygons, raster, field, fun) {
     stop("fasterize currently only works on POLYGON and MULTIPOLYGON types")
   }
 
-  if(fun != "sum") {
+  if(!fun %in% c("sum", "first", "last")) {
     stop("Only summing values is currently implemented")
   }
 }

@@ -1,6 +1,7 @@
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "edgelist.h"
+#include "pixelfn.h"
 #include "rasterize_polygon.h"
 
 // Rasterize a single polygon
@@ -8,7 +9,7 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
-                       RasterInfo &ras) {
+                       int &layer, RasterInfo &ras, PixelFn &pixel_function) {
 
   std::list<Edge>::iterator it;
   int counter, xstart, xend, xpix;
@@ -49,12 +50,7 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
       } else {
         xend = ceil((*it).x);
         for(xpix = xstart; xpix < xend; ++xpix) {
-          //Trying to figure out how to avoid this test for every iteration
-          raster.at(yline, xpix) =
-            //it's probably dangerous to use Rcpp::internal
-            Rcpp::internal::Rcpp_IsNA(raster.at(yline, xpix)) ?
-            poly_value : (raster.at(yline, xpix) + poly_value);
-          // (raster.at(yline, xpix) + poly_value);
+          pixel_function(raster, xpix, yline, poly_value, layer);
         }
       }
     }
