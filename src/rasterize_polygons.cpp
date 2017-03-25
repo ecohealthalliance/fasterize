@@ -31,7 +31,7 @@ Rcpp::S4 rasterize_polygons(Rcpp::S4 &raster,
   int layer = 0;
 
   for(; p != polygons.end(); ++p, ++i, ++layer) {
-    rasterize_polygon(raster_matrix, Rcpp::as<Rcpp::List>(*p)[0], (*i), layer,
+    rasterize_polygon(raster_matrix, (*p), (*i), layer,
                       ras, pixel_function);
   }
 
