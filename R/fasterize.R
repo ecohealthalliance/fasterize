@@ -10,9 +10,8 @@
 #' @param field A numeric value or vector or the name of a column in `polygons`,
 #' providing a value for each of the polygons rasterized.
 #' @param fun The name of a function by which to combine overlapping polygons.
-#' Currently only takes "sum", but future versions will provide other
-#' high-performance compiled functions as well as the ability to pass arbitrary
-#' R functions
+#' Currently takes "sum", "first", "last", "min", or "max".  Future versions
+#' allow passing arbitrary R or C++ functions.
 # #' @param crop logical. If TRUE, the raster is cropped to the extent of the
 # #' polygon object provided.
 #' @param background numeric. Value to put in the cells that are not covered by any of the features of x. Default is NA
@@ -89,7 +88,7 @@ check_inputs <- function(polygons, raster, field, fun) {
     stop("fasterize currently only works on POLYGON and MULTIPOLYGON types")
   }
 
-  if(!fun %in% c("sum", "first", "last")) {
+  if(!fun %in% c("sum", "first", "last", "min", "max")) {
     stop("Only summing values is currently implemented")
   }
 }
