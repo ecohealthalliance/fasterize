@@ -9,7 +9,7 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
-                       int &layer, RasterInfo &ras, PixelFn &pixel_function) {
+                       RasterInfo &ras, PixelFn &pixel_function) {
 
   std::list<Edge>::iterator it;
   int counter, xstart, xend, xpix;
@@ -50,7 +50,8 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
       } else {
         xend = ceil((*it).x);
         for(xpix = xstart; xpix < xend; ++xpix) {
-          pixel_function(raster, xpix, yline, poly_value, layer);
+          //note x/y switched here as raster objects store values this way
+          pixel_function(raster, yline, xpix, poly_value);
         }
       }
     }

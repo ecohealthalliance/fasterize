@@ -2,6 +2,8 @@
 #define EDGE
 
 #include <RcppArmadillo.h>
+// [[Rcpp::plugins(cpp11)]]
+
 
 // A small object to hold basic info about raster dimensions
 struct RasterInfo {

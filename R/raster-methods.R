@@ -10,13 +10,14 @@ setOldClass("sf")
 #' @param origin the origin point of the output raster
 #' @param ... Additional arguments, see [raster::raster()] for more details.
 #' @aliases raster
+#' @importFrom sp CRS
 #' @export
 setMethod('raster', signature(x='sf'),
           function(x, origin, ...){
             bb <- sf::st_bbox(x)[c(1,3,2,4)]
             x  <- ext <- raster::extent(bb)
             r <- raster::raster(ext, ...)
-            r@crs <- sp::CRS(sf::st_crs(x)[["proj4string"]])
+            r@crs <- CRS(sf::st_crs(x)[["proj4string"]])
             if (!missing(origin)) {
               raster::origin(r) <- origin
               r <- raster::extend(r, 1)

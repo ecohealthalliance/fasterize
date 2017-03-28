@@ -35,7 +35,7 @@ hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))
 p1 <- list(p1, hole)
 p2 <- list(rbind(c(-10,0), c(140,60), c(160,0), c(140,-55), c(-10,0)))
 p3 <- list(rbind(c(-125,0), c(0,60), c(40,5), c(15,-45), c(-125,0)))
-pols <- st_sf(value = rep(1,3),
+pols <- st_sf(value = c(1,2,3),
              geometry = st_sfc(lapply(list(p1, p2, p3), st_polygon)))
 r <- raster(pols, res = 1)
 r <- fasterize(pols, r, field = "value", fun="sum")
@@ -60,17 +60,9 @@ print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr     min      lq    mean  median      uq    max neval cld
-    #>  rasterize 347.599 369.086 566.915 419.953 466.610 2990.9   100   b
-    #>  fasterize   0.375   0.515   0.825   0.591   0.825    3.7   100  a
-
-``` r
-options(scipen = 5)
-boxplot(bench,  ylab="Execution time in milliseconds",
-        unit = "ms", xlab="", log=TRUE)
-```
-
-![](inst/figs/readme-benchmark-1.png)
+    #>       expr     min    lq    mean median      uq     max neval cld
+    #>  rasterize 349.810 433.5 626.083 490.92 704.756 2342.53   100   b
+    #>  fasterize   0.281   0.3   0.545   0.34   0.475    2.95   100  a
 
 How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
 
@@ -97,18 +89,17 @@ mammal_shapes <- st_read("Mammals_Terrestrial")
 ``` r
 mammal_raster <- raster(mammal_shapes, res = 1/6)
 bench2 <- microbenchmark::microbenchmark(
-  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1, fun="sum"),
+  mammals = mammal_raster <- fasterize(mammal_shapes, mammal_raster, fun="sum"),
   times=20, unit = "s")
 print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>                                                                                   expr
-    #>  mammal_raster <- fasterize(mammal_shapes, mammal_raster, field = 1,      fun = "sum")
-    #>    min    lq  mean median    uq  max neval
-    #>  0.946 0.956 0.981  0.973 0.993 1.06    20
+    #>     expr   min   lq mean median   uq  max neval
+    #>  mammals 0.967 1.04 1.23   1.14 1.33 1.82    20
 
 ``` r
+par(mar=c(0,0.5,0,0.5))
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
 
