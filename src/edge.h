@@ -20,10 +20,11 @@ struct RasterInfo {
     ncol = raster.slot("ncols");
 
     if(raster.slot("rotated")) {
-      Rcpp::S4 rotation = raster.slot("rotation");
-      Rcpp::NumericVector geotrans = rotation.slot("geotrans");
-      xres = geotrans[2];
-      yres = geotrans[4];
+      Rcpp::stop("No current support for rotated rasters.");
+      // Rcpp::S4 rotation = raster.slot("rotation");
+      // Rcpp::NumericVector geotrans = rotation.slot("geotrans");
+      // xres = geotrans[2];
+      // yres = geotrans[4];
     } else {
     xres = (xmax - xmin)/ncol;
     yres = (ymax - ymin)/nrow;
@@ -36,8 +37,8 @@ struct RasterInfo {
 struct Edge {
   int ystart;  //the first matrix row intersected
   int yend;  //the matrix row below the end of the line
-  double dxdy; //change in x per y
-  double x; //the x location on the first matrix row intersected
+  long double dxdy; //change in x per y. Long helps with some rounding errors
+  long double x; //the x location on the first matrix row intersected
 
   Edge(double x0, double y0, double x1, double y1, RasterInfo &ras,
        int y0c, int y1c) {

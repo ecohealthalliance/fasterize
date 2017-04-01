@@ -105,7 +105,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     Rcpp::S4 raster1 = brick(raster);
     Rcpp::S4 rasterdata(raster1.slot("data"));
     rasterdata.slot("values") = Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
-    arma::cube raster_array(Rcpp::as<Rcpp::NumericVector>(rasterdata.slot("values")).begin(),
+    arma::cube raster_array(Rcpp::NumericVector(rasterdata.slot("values")).begin(),
                             ras.ncol, ras.nrow, n_layers, false, true);
     raster_array.fill(NA_REAL);
 
@@ -130,6 +130,11 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
       layernames[(*m).second] = (*m).first;
     }
 
+    if(!R_IsNA(background)) {
+      raster_array.replace(NA_REAL, background);
+    }
+
+    //Fill in the empty cells
     rasterdata.slot("nlayers") = n_layers;
     rasterdata.slot("names") = layernames;
 
@@ -146,10 +151,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
       Rcpp::S4 rcrs(raster1.slot("crs"));
       rcrs.slot("projargs") = sfproj4;
     }
-    //Fill in the empty cells
-    if(!R_IsNA(background)) {
-      raster_array.replace(NA_REAL, background);
-    }
+
     return raster1;
 
     //For the case of collapsing all to one layer
@@ -159,7 +161,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     n_layers = 1;
     Rcpp::S4 rasterdata(raster1.slot("data"));
     rasterdata.slot("values") = Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
-    arma::cube raster_array(Rcpp::as<Rcpp::NumericVector>(rasterdata.slot("values")).begin(),
+    arma::cube raster_array(Rcpp::NumericVector(rasterdata.slot("values")).begin(),
                               ras.ncol, ras.nrow, n_layers, false, true);
     raster_array.fill(NA_REAL);
 
@@ -171,12 +173,18 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
                         ras, pixel_function);
     }
 
+    //Fill in the empty cells
+    if(!R_IsNA(background)) {
+      raster_array.replace(NA_REAL, background);
+    }
+
     //Update other raster slots
     rasterdata.slot("min") = raster_array.min();
     rasterdata.slot("max") = raster_array.max();
     rasterdata.slot("inmemory") = true;
     rasterdata.slot("fromdisk") = false;
     rasterdata.slot("haveminmax") = true;
+    rasterdata.slot("names") = "layer";
 
     Rcpp::CharacterVector sfproj4 =
       Rcpp::as<Rcpp::StringVector>(Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]);
@@ -184,10 +192,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
       Rcpp::S4 rcrs(raster1.slot("crs"));
       rcrs.slot("projargs") = sfproj4;
     }
-    //Fill in the empty cells
-    if(!R_IsNA(background)) {
-      raster_array.replace(NA_REAL, background);
-    }
+
     return raster1;
   }
 }
