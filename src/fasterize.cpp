@@ -1,3 +1,4 @@
+#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "check_inputs.h"
@@ -6,7 +7,6 @@
 #include "rasterize_polygon.h"
 #include "fasterize.h"
 #include "utils.h"
-
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -53,8 +53,6 @@
 //' r <- raster(pols, res = 1)
 //' r <- fasterize(pols, r, field = "value", fun="sum")
 //' plot(r)
-//' @importFrom raster xmin xmax ymin ymax res nrow ncol crs setValues
-//' @importFrom sf st_as_sf st_crs st_sfc st_polygon st_intersection st_geometry
 //' @export
 // [[Rcpp::export]]
 Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
@@ -75,8 +73,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
 
   RasterInfo ras(raster);
   PixelFn pixel_function = set_pixelfn(fun);
-  int n_layers;
-
+  arma::uword n_layers;
   //  If there is a `by` argument, we calculate unique values and set up
   //  a RasterBrick and a multi-layered output
   if (by.isNotNull()) {
@@ -84,10 +81,9 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     //An elaborate way to extract the 'by' column as vector<string>
     std::vector<std::string> by_vals =
       Rcpp::as<std::vector<std::string>>(
-        as_character(sf[Rcpp::as<std::string>(by.get())])
+        as_character(sf[Rcpp::as<std::string>(by)])
       );
-
-    //Loop over the by column, create a map of unique vals - layer incides
+    //Loop over the by column, create a map of unique vals/layer indices
     std::unordered_map<std::string, arma::uword> by_map;
     arma::uword x = 0;
     std::vector< std::string >::iterator b;
@@ -97,21 +93,19 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
         ++x;
       }
     }
-
     //Set our output values to be appropriate for multiple layers
     n_layers = by_map.size();
+    Rcpp::S4 raster1 = brick(raster);
+
     //Create the output values in the raster slot but share memory with
     //Armadillo array for operations
-    Rcpp::S4 raster1 = brick(raster);
     Rcpp::S4 rasterdata(raster1.slot("data"));
-    rasterdata.slot("values") = Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
-    arma::cube raster_array(Rcpp::NumericVector(rasterdata.slot("values")).begin(),
-                            ras.ncol, ras.nrow, n_layers, false, true);
+    rasterdata.slot("values") =
+      Rcpp::NumericMatrix(ras.nrow * ras.ncol, n_layers);
+    arma::cube raster_array(
+        Rcpp::NumericVector(rasterdata.slot("values")).begin(),
+        ras.ncol, ras.nrow, n_layers, false, true);
     raster_array.fill(NA_REAL);
-
-    Rcpp::IntegerVector dims(2, n_layers);
-    dims[0] = ras.nrow*ras.ncol;
-    Rcpp::as<Rcpp::NumericVector>(rasterdata.slot("values")).attr("dim") = dims;
 
     //Do our rasterizing on each shape, assigning output to its unique
     //value layer
@@ -119,17 +113,17 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     f = field_vals.begin();
     b = by_vals.begin();
     for(; p != polygons.end(); ++p, ++f, ++b) {
-      rasterize_polygon(raster_array.slice(by_map[*b]), (*p), (*f),
+      rasterize_polygon(raster_array.slice(by_map[(*b)]), (*p), (*f),
                         ras, pixel_function);
     }
-
     //Update brick-specific raster slots
-     Rcpp::StringVector layernames(n_layers);
-    for(std::unordered_map<std::string, arma::uword>::iterator m = by_map.begin();
-        m != by_map.end(); ++m) {
+    Rcpp::StringVector layernames(n_layers);
+    for(
+      std::unordered_map<std::string, arma::uword>::iterator m = by_map.begin();
+      m != by_map.end(); ++m
+    ) {
       layernames[(*m).second] = (*m).first;
     }
-
     if(!R_IsNA(background)) {
       raster_array.replace(NA_REAL, background);
     }
@@ -137,7 +131,6 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     //Fill in the empty cells
     rasterdata.slot("nlayers") = n_layers;
     rasterdata.slot("names") = layernames;
-
     //Update other raster slots
     rasterdata.slot("min") = raster_array.min();
     rasterdata.slot("max") = raster_array.max();
@@ -146,7 +139,9 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     rasterdata.slot("haveminmax") = true;
 
     Rcpp::CharacterVector sfproj4 =
-      Rcpp::as<Rcpp::StringVector>(Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]);
+      Rcpp::as<Rcpp::StringVector>(
+        Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]
+      );
     if(sfproj4[0] != NA_STRING) {
       Rcpp::S4 rcrs(raster1.slot("crs"));
       rcrs.slot("projargs") = sfproj4;
@@ -160,9 +155,11 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     Rcpp::S4 raster1 = Rcpp::clone(raster);
     n_layers = 1;
     Rcpp::S4 rasterdata(raster1.slot("data"));
-    rasterdata.slot("values") = Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
-    arma::cube raster_array(Rcpp::NumericVector(rasterdata.slot("values")).begin(),
-                              ras.ncol, ras.nrow, n_layers, false, true);
+    rasterdata.slot("values") =
+      Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
+    arma::cube raster_array(
+        Rcpp::NumericVector(rasterdata.slot("values")).begin(),
+        ras.ncol, ras.nrow, n_layers, false, true);
     raster_array.fill(NA_REAL);
 
     //Rasterize but always assign to the one layer
@@ -187,7 +184,9 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     rasterdata.slot("names") = "layer";
 
     Rcpp::CharacterVector sfproj4 =
-      Rcpp::as<Rcpp::StringVector>(Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]);
+      Rcpp::as<Rcpp::StringVector>(
+        Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]
+      );
     if(sfproj4[0] != NA_STRING) {
       Rcpp::S4 rcrs(raster1.slot("crs"));
       rcrs.slot("projargs") = sfproj4;

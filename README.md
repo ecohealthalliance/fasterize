@@ -60,9 +60,9 @@ print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr     min    lq    mean median      uq     max neval cld
-    #>  rasterize 349.810 433.5 626.083 490.92 704.756 2342.53   100   b
-    #>  fasterize   0.281   0.3   0.545   0.34   0.475    2.95   100  a
+    #>       expr     min      lq    mean  median      uq   max neval cld
+    #>  rasterize 333.292 349.469 379.997 362.640 416.768 559.0   100   b
+    #>  fasterize   0.283   0.304   0.546   0.334   0.411   4.2   100  a
 
 How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
 
@@ -95,8 +95,8 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr   min   lq mean median   uq  max neval
-    #>  mammals 0.967 1.04 1.23   1.14 1.33 1.82    20
+    #>     expr   min   lq mean median   uq max neval
+    #>  mammals 0.856 0.87  0.9  0.897 0.92   1    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))

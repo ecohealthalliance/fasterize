@@ -1,18 +1,21 @@
+#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "edgelist.h"
 #include "pixelfn.h"
 #include "rasterize_polygon.h"
+// [[Rcpp::plugins(cpp11)]
+// [[Rcpp::depends(RcppArmadillo)]]
 
 // Rasterize a single polygon
 // Based on https://ezekiel.encs.vancouver.wsu.edu/~cs442/lectures/rasterization/polyfill/polyfill.pdf #nolint
-// [[Rcpp::plugins(cpp11)]
-// [[Rcpp::depends(RcppArmadillo)]]
-void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
+
+void rasterize_polygon(arma::mat &raster, Rcpp::RObject polygon,
+                       double &poly_value,
                        RasterInfo &ras, PixelFn &pixel_function) {
 
   std::list<Edge>::iterator it;
-  int counter, xstart, xend, xpix;
+  arma::uword counter, xstart, xend, xpix;
 
   //Create the list of all edges of the polygon, fill and sort it
   std::list<Edge> edges;
@@ -23,7 +26,7 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
   std::list<Edge> active_edges;
 
   //Start at the top of the first edge
-  int yline = edges.front().ystart;
+  arma::uword yline(edges.front().ystart);
 
   //Main loop
   while(
@@ -38,22 +41,26 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
     active_edges.sort(less_by_x());
 
     //Iterate over active edges, fill between odd and even edges.
-    if(yline >= 0) {  //Don't bother filling in if polygon is above raster edge
-      counter = 0;
-      for(it = active_edges.begin();
-          it != active_edges.end();
-          it++) {
-        counter++;
-        if (counter % 2) {
-          xstart = ceil((*it).x);
-        } else {
-          xend = ceil((*it).x);
-          if(xend > 0 && xstart < ras.ncol) { // How to avoid this every time?
-            for(xpix = std::max(0, xstart); xpix < std::min(xend, ras.ncol); ++xpix) {
-              //note x/y switched here as raster objects store values this way
-              pixel_function(raster, yline, xpix, poly_value);
-            }
-          }
+    counter = 0;
+    for(it = active_edges.begin();
+        it != active_edges.end();
+        it++) {
+      counter++;
+      if (counter % 2) {
+        xstart = ((*it).x < 0.0) ?
+                   0.0 :
+                   ((*it).x > ras.ncold ?
+                     ras.ncold :
+                     std::ceil((*it).x));
+      } else {
+        xend = ((*it).x < 0.0) ?
+                 0.0 :
+                 ((*it).x > ras.ncold ?
+                   ras.ncold :
+                   std::ceil((*it).x));
+        for(xpix = xstart; xpix < xend; ++xpix) {
+          //note x/y switched here as raster objects store values this way
+          pixel_function(raster, yline, xpix, poly_value);
         }
       }
     }
@@ -73,13 +80,3 @@ void rasterize_polygon(arma::mat &raster, SEXP polygon, double &poly_value,
     }
   }
 }
-
-
-//Export this for debugging
-// arma::mat rasterize_polygon2(arma::mat raster, SEXP polygon,
-//                              double &poly_value, Rcpp::List raster_info) {
-//   RasterInfo ras(raster_info);
-//   arma::mat raster_matrix = arma::mat(ras.nrow, ras.ncol).fill(NA_REAL);
-//   rasterize_polygon(raster_matrix, polygon, poly_value, ras);
-//   return raster_matrix;
-// }

@@ -1,7 +1,7 @@
 
 context("fasterize")
-library(sf)
-library(raster)
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(raster))
 p1 <- rbind(c(-180,-20), c(-140,55), c(10, 0), c(-140,-60), c(-180,-20))
 hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))
 p1 <- list(p1, hole)
@@ -60,14 +60,17 @@ test_that("projections handled properly", {
 # # })
 
 test_that("values are correct when polygons extend beyond raster", {
-  library(raster)
   r1 <- raster(extent(c(-180, 180, -60, 60)), res=1)
   f1 <- fasterize(pols, r1, field = "value", fun="sum")
-  r2 <- raster(extent(c(-150, 150, -60, 0)), res=1)
+  r2 <- raster(extent(c(130, 150, -60, 0)), res=1)
   f2 <- fasterize(pols, r2, field = "value", fun="sum")
+  r3 <- raster(extent(c(-150, -130, -60, 0)), res=1)
+  f3 <- fasterize(pols, r3, field = "value", fun="sum")
   expect_equal(extent(r2), extent(f2))
   f1c <- crop(f1, f2)
   expect_equal(getValues(f1c), getValues(f2))
+  f1d <- crop(f1, f3)
+  expect_equal(getValues(f1d), getValues(f3))
   # which(as.matrix(f1c) != as.matrix(f2) |
   #       is.na(as.matrix(f1c)) != is.na(as.matrix(f2)),
   #       arr.ind = TRUE)

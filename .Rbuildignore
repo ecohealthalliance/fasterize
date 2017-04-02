@@ -12,7 +12,7 @@
 ^.*\.zip$
 ^Mammals_Terrestrial$
 ^\.lintr$
-^test_script.R$
-^test.R$
+^.*test.R$
 ^codecov\.yml$
 ^.*\.pdf$
+^.test.cpp$

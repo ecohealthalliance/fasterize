@@ -1,11 +1,14 @@
+#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
+// [[Rcpp::plugins(cpp11)]
+// [[Rcpp::depends(RcppArmadillo)]]
 
-Rcpp::CharacterVector as_character(const SEXP vec) {
-  if (Rcpp::as<Rcpp::RObject>(vec).inherits("factor")) {
+Rcpp::CharacterVector as_character(const Rcpp::RObject vec) {
+  if (vec.inherits("factor")) {
     Rcpp::IntegerVector ints(vec);
     Rcpp::StringVector levels = ints.attr("levels");
     Rcpp::CharacterVector out(ints.size());
-    for(int i = 0; i < ints.size(); i++) {
+    for(size_t i = 0; i < ints.size(); i++) {
       out[i] =
         (ints[i] == NA_INTEGER) ? NA_STRING : levels[ints[i] - 1];
     }

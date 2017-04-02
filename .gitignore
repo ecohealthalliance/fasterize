@@ -6,6 +6,6 @@ Mammals_Terrestrial.zip
 *.prof
 README.html
 *_cache/
-test_script.R
-test.R
+*test.R
+*test.cpp
 ./*.pdf

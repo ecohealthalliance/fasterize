@@ -1,5 +1,5 @@
 context("funs")
-library(sf)
+suppressPackageStartupMessages(library(sf))
 
 p1 <- rbind(c(-180,-20), c(-140,55), c(10, 0), c(-140,-60), c(-180,-20))
 hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))

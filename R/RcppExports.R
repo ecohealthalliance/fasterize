@@ -44,8 +44,6 @@
 #' r <- raster(pols, res = 1)
 #' r <- fasterize(pols, r, field = "value", fun="sum")
 #' plot(r)
-#' @importFrom raster xmin xmax ymin ymax res nrow ncol crs setValues
-#' @importFrom sf st_as_sf st_crs st_sfc st_polygon st_intersection st_geometry
 #' @export
 fasterize <- function(sf, raster, field = NULL, fun = "last", background = NA_real_, by = NULL) {
     .Call('fasterize_fasterize', PACKAGE = 'fasterize', sf, raster, field, fun, background, by)

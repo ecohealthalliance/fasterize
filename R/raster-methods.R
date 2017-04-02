@@ -11,6 +11,8 @@ setOldClass("sf")
 #' @param ... Additional arguments, see [raster::raster()] for more details.
 #' @aliases raster
 #' @importFrom sp CRS
+#' @importFrom sf st_bbox st_crs
+#' @importFrom raster origin extend crop extent
 #' @export
 setMethod('raster', signature(x='sf'),
           function(x, origin, ...){

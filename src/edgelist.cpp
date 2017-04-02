@@ -1,28 +1,30 @@
+#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "edgelist.h"
-
-//  Builds an edge list from a polygon or multipolygon
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
-void edgelist(SEXP polygon, RasterInfo &ras, std::list<Edge> &edges) {
+
+//  Builds an edge list from a polygon or multipolygon
+void edgelist(Rcpp::RObject polygon, RasterInfo &ras, std::list<Edge> &edges) {
   //std::list<Edge> edges;
-  double y0, y1;
-  int y0c, y1c;
+  double y0, y1, y0c, y1c;
   //iterate recursively over the list
-  switch( TYPEOF(polygon) ) {
+  switch(polygon.sexp_type()) {
   case REALSXP: {
-    //if the object is numeric, it an Nx2 of polygon nodes.
-    arma::mat poly = Rcpp::as<arma::mat>(polygon);
-    //Add edge to list if it's not horizontal
-    for(int i = 0; i < (poly.n_rows - 1); ++i) {
+    //if the object is numeric, it an Nx2 matrix of polygon nodes.
+    Rcpp::NumericMatrix poly(polygon);
+    //Add edge to list if it's not horizontal and is in the raster
+    for(size_t i = 0; i < (poly.nrow() - 1); ++i) {
       y0 = (ras.ymax - poly(i, 1))/ras.yres - 0.5;
       y1 = (ras.ymax - poly(i+1, 1))/ras.yres - 0.5;
-      y0c = std::ceil(y0);
-      y1c = std::ceil(y1);
-      if(y0c != y1c) {
-        edges.push_back(Edge(poly(i    , 0), y0,
-                             poly(i + 1, 0), y1, ras, y0c, y1c));
+      if(y0 > 0 || y1 > 0) {  //only both with edges that are in the raster
+        y0c = std::ceil(y0);
+        y1c = std::ceil(y1);
+        if(y0c != y1c) {  //only bother with non-horizontal edges
+          edges.push_back(Edge(poly(i    , 0), y0,
+                               poly(i + 1, 0), y1, ras, y0c, y1c));
+        }
       }
     }
     break;
@@ -32,10 +34,8 @@ void edgelist(SEXP polygon, RasterInfo &ras, std::list<Edge> &edges) {
     Rcpp::List polylist = Rcpp::as<Rcpp::List>(polygon);
     for(Rcpp::List::iterator it = polylist.begin();
         it != polylist.end();
-          ++it) {
-      //std::list<Edge> tmp = edgelist(Rcpp::wrap(*it), ras);
+        ++it) {
       edgelist(Rcpp::wrap(*it), ras, edges);
-      //edges.insert(edges.end(), tmp.begin(), tmp.end());
     }
     break;
   }
@@ -44,10 +44,3 @@ void edgelist(SEXP polygon, RasterInfo &ras, std::list<Edge> &edges) {
   }
   }
 }
-
-//Export this function for debugging:
-// bool edgelist2(SEXP polygon, Rcpp::List raster_info) {
-// RasterInfo ras(raster_info);
-//   std::list<Edge> edges = edgelist(polygon, ras);
-//   return true;
-//     }
