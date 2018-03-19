@@ -18,14 +18,14 @@ RoxygenNote: 6.0.1
 SystemRequirements: C++11
 Suggests:
     testthat,
-    microbenchmark
+    microbenchmark,
+    sf
 Depends:
     R (>= 3.3.0)
 Imports:
     methods,
     Rcpp,
     raster,
-    sf,
     sp
 LinkingTo:
     Rcpp,
