@@ -8,18 +8,18 @@ Fast sf-to-raster conversion
 
 **fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
 
-Functionality is currently limited to rasterizing polygons in [**sf**](https::/cran.r-project.org/pakcage=sf)-type data frames.
+Functionality is currently limited to rasterizing polygons in [**sf**](https::/cran.r-project.org/package=sf)-type data frames.
 
 Installation
 ------------
 
-Install **fasterize** from CRAN. It requires [**sf**](https::/cran.r-project.org/pakcage=sf), which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), PROJ.4 (&gt;= 4.8.0) to be installed on your system.
+Install **fasterize** from CRAN. It requires [**sf**](https::/cran.r-project.org/package=sf), which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), PROJ.4 (&gt;= 4.8.0) to be installed on your system.
 
 ``` r
 install.packages('fasterize')
 ```
 
-Install the development version of **fasterize** with [**devtools**](https::/cran.r-project.org/pakcage=devtools). **fasterize** uses [**Rcpp**](https::/cran.r-project.org/pakcage=Rcpp) and thus requires a compile toolchain to install from source.
+Install the development version of **fasterize** with [**devtools**](https::/cran.r-project.org/package=devtools). **fasterize** uses [**Rcpp**](https::/cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source.
 
 ``` r
 devtools::install_github("ecohealthalliance/fasterize")
@@ -103,8 +103,8 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr  min    lq  mean median    uq  max neval
-    #>  mammals 0.87 0.886 0.928  0.902 0.928 1.34    20
+    #>     expr   min    lq  mean median    uq  max neval
+    #>  mammals 0.855 0.862 0.907  0.877 0.904 1.14    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
