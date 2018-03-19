@@ -121,6 +121,6 @@ plot(mammal_raster, axes=FALSE, box=FALSE)
 About
 -----
 
-**fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance). Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+**fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance).
 
 [![http://www.ecohealthalliance.org/](eha-footer.png){ width=100% }](http://www.ecohealthalliance.org/)
