@@ -33,8 +33,8 @@ setMethod('raster', signature(x='sf'),
 
 #' raster::plot
 #'
-#' re-exported \code{plot} method from \code{raster} package to avoid failing
-#' when trying to plot raster objects without having \code{raster} loaded
+#' re-exported `plot` method from `raster` package to avoid failing
+#' when trying to plot raster objects without having `raster` loaded
 #' first.
 #'
 #' @name plot

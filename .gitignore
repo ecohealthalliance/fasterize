@@ -9,3 +9,4 @@ README.html
 *test.R
 *test.cpp
 ./*.pdf
+inst/doc

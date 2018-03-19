@@ -11,15 +11,15 @@ fasterize(sf, raster, field = NULL, fun = "last", background = NA_real_,
   by = NULL)
 }
 \arguments{
-\item{sf}{an [sf::sf()] object with a geometry column of POLYGON and/or
+\item{sf}{an \code{\link[sf:sf]{sf::sf()}} object with a geometry column of POLYGON and/or
 MULTIPOLYGON objects.}
 
 \item{raster}{A raster  object. Used as a template for the raster output.
-Can be created with [raster::raster()].
+Can be created with \code{\link[raster:raster]{raster::raster()}}.
 The fasterize package provides a method to create a raster object from
 an sf object.}
 
-\item{field}{character. The name of a column in `sf`,
+\item{field}{character. The name of a column in \code{sf},
 providing a value for each of the polygons rasterized. If NULL (default),
 all polygons will be given a value of 1.}
 
@@ -27,15 +27,15 @@ all polygons will be given a value of 1.}
 polygons. Currently takes "sum", "first", "last", "min", "max", "count", or
 "any".  Future versions may include more functions or the ability to pass
 custom R/C++ functions. If you need to summarize by a different function,
-use`by=` to get a RasterBrick and then [raster::stackApply()] or
-[raster::calc()] to summarize.}
+use\code{by=} to get a RasterBrick and then \code{\link[raster:stackApply]{raster::stackApply()}} or
+\code{\link[raster:calc]{raster::calc()}} to summarize.}
 
 \item{background}{numeric. Value to put in the cells that are not covered by
 any of the features of x. Default is NA.}
 
-\item{by}{character.  The name of a column in `sf` by which to aggregate
+\item{by}{character.  The name of a column in \code{sf} by which to aggregate
 layers.  If set, fasterize will return a RasterBrick with as many layers
-as unique values of the `by` column.}
+as unique values of the \code{by} column.}
 }
 \value{
 A raster of the same size, extent, resolution and projection as the
@@ -47,9 +47,10 @@ Rasterize set of polygons
 Fast sf-to-raster conversion
 }
 \details{
-This is a high-performance replacement for [raster::rasterize()].
+This is a high-performance replacement for \code{\link[raster:rasterize]{raster::rasterize()}}.
 
-The algorithm is based on the method descibed [here](https://ezekiel.encs.vancouver.wsu.edu/~cs442/lectures/rasterization/polyfill/polyfill.pdf) #nolint
+The algorithm is based on the method descibed in course materials by
+\href{https://labs.wsu.edu/wayne-cochran/}{Wayne O. Cochran}.
 }
 \examples{
 library(sf)

@@ -16,7 +16,8 @@
 //'
 //' This is a high-performance replacement for [raster::rasterize()].
 //'
-//' The algorithm is based on the method descibed [here](https://ezekiel.encs.vancouver.wsu.edu/~cs442/lectures/rasterization/polyfill/polyfill.pdf) #nolint
+//' The algorithm is based on the method descibed in course materials by
+//' [Wayne O. Cochran](https://labs.wsu.edu/wayne-cochran/).
 //'
 //' @param sf an [sf::sf()] object with a geometry column of POLYGON and/or
 //' MULTIPOLYGON objects.

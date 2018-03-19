@@ -1,10 +1,15 @@
+---
+title: "Using Fasterize"
+author: "Noam Ross"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-fasterize
-=========
-
-Fast sf-to-raster conversion
-
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](vignettes/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize) [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+<!-- As fasterize is a small package, this vignette just copies over the major contents of the README, without badges -->
 
 **fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
 
@@ -48,7 +53,7 @@ r <- fasterize(pols, r, field = "value", fun="sum")
 plot(r)
 ```
 
-![](vignettes/readme-example-1-1.png)
+![](readme-example-1-1.png)
 
 Performance
 -----------
@@ -67,8 +72,8 @@ print(bench, digits = 3)
 
     #> Unit: milliseconds
     #>       expr     min      lq    mean  median      uq    max neval cld
-    #>  rasterize 342.486 379.028 426.959 404.759 434.029 859.01   100   b
-    #>  fasterize   0.337   0.368   0.499   0.413   0.636   2.02   100  a
+    #>  rasterize 327.735 354.143 408.382 376.665 410.461 913.57   100   b
+    #>  fasterize   0.338   0.351   0.494   0.395   0.648   1.23   100  a
 
 How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
 
@@ -103,19 +108,19 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr   min    lq  mean median    uq  max neval
-    #>  mammals 0.864 0.897 0.925  0.908 0.948 1.02    20
+    #>     expr   min  lq  mean median    uq  max neval
+    #>  mammals 0.889 0.9 0.929  0.919 0.962 1.01    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
 
-![](vignettes/readme-so-damn-fast-1.png)
+![](readme-so-damn-fast-1.png)
 
 About
 -----
 
-**fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance). Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+**fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance). Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-[![http://www.ecohealthalliance.org/](vignettes/eha-footer.png)](http://www.ecohealthalliance.org/)
+[![http://www.ecohealthalliance.org/](eha-footer.png){ width=100% }](http://www.ecohealthalliance.org/)

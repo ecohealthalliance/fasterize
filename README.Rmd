@@ -1,5 +1,7 @@
 ---
-output: github_document
+output: 
+  github_document:
+    html_preview: FALSE
 ---
 
 ```{r, setup, echo = FALSE, message = FALSE}
@@ -9,7 +11,7 @@ knitr::opts_chunk$set(
   error = FALSE,
   fig.width = 7,
   fig.height = 4.5,
-  fig.path = 'inst/figs/readme-',
+  fig.path = 'vignettes/readme-',
   cache=FALSE)
 ```
 
@@ -18,12 +20,12 @@ knitr::opts_chunk$set(
 Fast sf-to-raster conversion
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![MIT Licensed - Copyright 2016 EcoHealth Alliance](inst/figs/license-MIT-blue.svg)](https://badges.mit-license.org/)
+[![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/)
 [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2)
 [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize)
-<!-- [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) -->
-<!-- [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)  -->
+[![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 
 **fasterize** is high-performance replacement for the `rasterize()` function
 in the [**raster**]() package.
@@ -33,7 +35,7 @@ data frames.
 
 ## Installation
 
-Install **fasterize** fron CRAN.  It requires [**sf**](https::/cran.r-project.org/pakcage=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0) to be installed on your system.
+Install **fasterize** from CRAN.  It requires [**sf**](https::/cran.r-project.org/pakcage=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0) to be installed on your system.
 
 ```{r eval = FALSE}
 install.packages('fasterize')
@@ -72,7 +74,7 @@ plot(r)
 
 Let's compare `fasterize()` to `raster::rasterize()`:
 
-```{r benchmark, cache=FALSE}
+```{r benchmark, cache=TRUE}
 pols_r <- as(pols, "Spatial")
 bench <- microbenchmark::microbenchmark(
   rasterize = r <- raster::rasterize(pols_r, r, field = "value", fun="sum"),
@@ -109,6 +111,6 @@ plot(mammal_raster, axes=FALSE, box=FALSE)
 ## About
 
 **fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance).
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-[![http://www.ecohealthalliance.org/](inst/figs/eha-footer.png)](http://www.ecohealthalliance.org/)
+[![http://www.ecohealthalliance.org/](vignettes/eha-footer.png)](http://www.ecohealthalliance.org/)

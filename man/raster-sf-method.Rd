@@ -13,8 +13,8 @@
 
 \item{origin}{the origin point of the output raster}
 
-\item{...}{Additional arguments, see [raster::raster()] for more details.}
+\item{...}{Additional arguments, see \code{\link[raster:raster]{raster::raster()}} for more details.}
 }
 \description{
-See [raster::raster()] for more details.
+See \code{\link[raster:raster]{raster::raster()}} for more details.
 }

@@ -2,10 +2,11 @@
 ^\.Rproj\.user$
 ^Makefile$
 ^README.Rmd$
+^README.md$
 ^.travis.yml$
 ^appveyor.yml$
 ^appveyor\.yml$
-^CONDUCT\.md$
+^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^.*_cache$
 ^.*\.prof$
@@ -16,3 +17,4 @@
 ^codecov\.yml$
 ^.*\.pdf$
 ^.test.cpp$
+^\.github$
