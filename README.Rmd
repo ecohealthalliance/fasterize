@@ -30,18 +30,18 @@ Fast sf-to-raster conversion
 **fasterize** is high-performance replacement for the `rasterize()` function
 in the [**raster**]() package.
 
-Functionality is currently limited to rasterizing polygons in [**sf**](https::/cran.r-project.org/package=sf)-type
+Functionality is currently limited to rasterizing polygons in [**sf**](https://cran.r-project.org/package=sf)-type
 data frames.
 
 ## Installation
 
-Install **fasterize** from CRAN.  It requires [**sf**](https::/cran.r-project.org/package=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0) to be installed on your system.
+Install **fasterize** from CRAN.  It requires [**sf**](https://cran.r-project.org/package=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0) to be installed on your system.
 
 ```{r eval = FALSE}
 install.packages('fasterize')
 ```
 
-Install the development version of **fasterize** with [**devtools**](https::/cran.r-project.org/package=devtools). **fasterize** uses [**Rcpp**](https::/cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source.
+Install the development version of **fasterize** with [**devtools**](https://cran.r-project.org/package=devtools). **fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source.
 
 ```{r eval = FALSE}
 devtools::install_github("ecohealthalliance/fasterize")
