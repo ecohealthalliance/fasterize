@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // fasterize
 Rcpp::S4 fasterize(Rcpp::DataFrame& sf, Rcpp::S4& raster, Rcpp::Nullable<std::string> field, std::string fun, double background, Rcpp::Nullable<std::string> by);
-RcppExport SEXP fasterize_fasterize(SEXP sfSEXP, SEXP rasterSEXP, SEXP fieldSEXP, SEXP funSEXP, SEXP backgroundSEXP, SEXP bySEXP) {
+RcppExport SEXP _fasterize_fasterize(SEXP sfSEXP, SEXP rasterSEXP, SEXP fieldSEXP, SEXP funSEXP, SEXP backgroundSEXP, SEXP bySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,4 +21,14 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(fasterize(sf, raster, field, fun, background, by));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_fasterize_fasterize", (DL_FUNC) &_fasterize_fasterize, 6},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_fasterize(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

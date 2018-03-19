@@ -1,11 +1,14 @@
 Package: fasterize
-Title: Fast sf-to-raster conversion
+Title: Fast Polygon to Raster Conversion 
 Version: 0.1.0
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org", role = c("aut", "cre")),
-    person("EcoHealth Alliance", role="cph"))
-Description: fasterize provides a drop-in replacement for raster::rasterize
-   that (a) takes sf-type objects, and (b) is much, much faster.
+    person("EcoHealth Alliance", role="cph"), 
+    person("Michael", "Sumner", role = "ctb"))
+Description: Provides a drop-in replacement for 'raster::rasterize'
+   that takes 'sf-type' objects, and and is much, much faster. There is support for
+   the main options provided by the 'raster' function for the value and function used
+   when rasterizing, the background value and options for multi-layer rasters. 
 License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/ecohealthalliance/fasterize

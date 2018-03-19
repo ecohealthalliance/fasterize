@@ -46,6 +46,6 @@
 #' plot(r)
 #' @export
 fasterize <- function(sf, raster, field = NULL, fun = "last", background = NA_real_, by = NULL) {
-    .Call('fasterize_fasterize', PACKAGE = 'fasterize', sf, raster, field, fun, background, by)
+    .Call('_fasterize_fasterize', PACKAGE = 'fasterize', sf, raster, field, fun, background, by)
 }
 
