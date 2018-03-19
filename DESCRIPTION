@@ -20,7 +20,7 @@ Suggests:
     testthat,
     microbenchmark,
     knitr,
-    rmarkdown
+    rmarkdown,
     sf
 Depends:
     R (>= 3.3.0)
