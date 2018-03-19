@@ -19,3 +19,4 @@
 ^.test.cpp$
 ^\.github$
 ^codemeta\.json$
+^cran-comments\.md$
