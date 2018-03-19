@@ -25,7 +25,7 @@ test_that("fasterize needs polygons", {
 })
 
 test_that("field value name is in sf object", {
-  expect_error(fasterize(pols, r1, field="hello"), "index out of bounds")
+  expect_error(fasterize(pols, r1, field="hello"), "Index out of bounds")
 })
 
 test_that("rotated rasters not supported", {
