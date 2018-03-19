@@ -12,9 +12,6 @@ dist: trusty
 
 cache: packages
 
-r_github_packages:
- - edzer/sfr
-
 r_packages:
 - covr
 
