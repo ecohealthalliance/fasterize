@@ -21,13 +21,13 @@ Suggests:
     microbenchmark,
     knitr,
     rmarkdown
+    sf
 Depends:
     R (>= 3.3.0)
 Imports:
     methods,
     Rcpp,
     raster,
-    sf,
     sp
 LinkingTo:
     Rcpp,
