@@ -49,7 +49,7 @@ Fast sf-to-raster conversion
 \details{
 This is a high-performance replacement for \code{\link[raster:rasterize]{raster::rasterize()}}.
 
-The algorithm is based on the method descibed in course materials by
+The algorithm is based on the method described in course materials by
 \href{https://labs.wsu.edu/wayne-cochran/}{Wayne O. Cochran}.
 }
 \examples{
