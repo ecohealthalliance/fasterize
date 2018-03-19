@@ -17,12 +17,12 @@ knitr::opts_chunk$set(
 
 Fast sf-to-raster conversion
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
-[![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![MIT Licensed - Copyright 2016 EcoHealth Alliance](inst/figs/license-MIT-blue.svg)](https://badges.mit-license.org/)
 [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2)
-[![Coverage Status](https://img.shields.io/codecov/c/github/ecohealthalliance/fasterize/master.svg)](https://codecov.io/github/ecohealthalliance/fasterize?branch=master)
-[![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize)
+<!-- [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) -->
 <!-- [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)  -->
 
 **fasterize** is high-performance replacement for the `rasterize()` function
@@ -33,9 +33,13 @@ data frames.
 
 ## Installation
 
-Install **fasterize** with [**devtools**](https::/cran.r-project.org/pakcage=Rcpp).
-**fasterize** uses [**Rcpp**](https::/cran.r-project.org/pakcage=Rcpp) and thus requires a compile toolchain to install.
-It also requires [**sf**](https::/cran.r-project.org/pakcage=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0).
+Install **fasterize** fron CRAN.  It requires [**sf**](https::/cran.r-project.org/pakcage=sf), which requires GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0) to be installed on your system.
+
+```{r eval = FALSE}
+install.packages('fasterize')
+```
+
+Install the development version of **fasterize** with [**devtools**](https::/cran.r-project.org/pakcage=devtools). **fasterize** uses [**Rcpp**](https::/cran.r-project.org/pakcage=Rcpp) and thus requires a compile toolchain to install from source.
 
 ```{r eval = FALSE}
 devtools::install_github("ecohealthalliance/fasterize")
@@ -82,11 +86,15 @@ How does `fasterize()` do on a large set of polygons? Here I download the IUCN s
 a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
 
 ```{r download, eval=FALSE, cache=TRUE}
-download.file(
-  "http://spatial-data.s3.amazonaws.com/groups/TERRESTRIAL_MAMMALS.zip",
-  destfile = "Mammals_Terrestrial.zip") # <-- 383 MB
-unzip("Mammals_Terrestrial.zip", exdir = "Mammals_Terrestrial")
+if(!dir.exists("Mammals_Terrestrial")) {
+  download.file(
+    "https://s3.amazonaws.com/hp3-shapefiles/Mammals_Terrestrial.zip",
+    destfile = "Mammals_Terrestrial.zip") # <-- 383 MB
+  unzip("Mammals_Terrestrial.zip", exdir = ".")
+  unlink("Mammals_Terrestrial.zip")
+}
 ```
+
 ```{r so-damn-fast, cache=FALSE}
 mammal_shapes <- st_read("Mammals_Terrestrial")
 mammal_raster <- raster(mammal_shapes, res = 1/6)

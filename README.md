@@ -4,7 +4,7 @@ fasterize
 
 Fast sf-to-raster conversion
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://img.shields.io/codecov/c/github/ecohealthalliance/fasterize/master.svg)](https://codecov.io/github/ecohealthalliance/fasterize?branch=master) [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) <!-- [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)  -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](inst/figs/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize) <!-- [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) --> <!-- [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)  -->
 
 **fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
 
@@ -60,25 +60,27 @@ print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr     min      lq    mean  median      uq   max neval cld
-    #>  rasterize 333.292 349.469 379.997 362.640 416.768 559.0   100   b
-    #>  fasterize   0.283   0.304   0.546   0.334   0.411   4.2   100  a
+    #>       expr     min      lq    mean  median      uq     max neval cld
+    #>  rasterize 362.614 392.782 449.816 422.805 468.437 954.334   100   b
+    #>  fasterize   0.244   0.278   0.383   0.317   0.411   0.825   100  a
 
 How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
 
 ``` r
-download.file(
-  "http://spatial-data.s3.amazonaws.com/groups/TERRESTRIAL_MAMMALS.zip",
-  destfile = "Mammals_Terrestrial.zip") # <-- 383 MB
-unzip("Mammals_Terrestrial.zip", exdir = "Mammals_Terrestrial")
+if(!dir.exists("Mammals_Terrestrial")) {
+  download.file(
+    "https://s3.amazonaws.com/hp3-shapefiles/Mammals_Terrestrial.zip",
+    destfile = "Mammals_Terrestrial.zip") # <-- 383 MB
+  unzip("Mammals_Terrestrial.zip", exdir = ".")
+  unlink("Mammals_Terrestrial.zip")
+}
 ```
 
 ``` r
 mammal_shapes <- st_read("Mammals_Terrestrial")
 ```
 
-    #> Reading layer `Mammals_Terrestrial' from data source `/Users/noamross/Dropbox (EHA)/projects/fasterize/Mammals_Terrestrial' using driver `ESRI Shapefile'
-    #> converted into: MULTIPOLYGON
+    #> Reading layer `Mammals_Terrestrial' from data source `/Users/noamross/dropbox-eha/projects-eha/fasterize/Mammals_Terrestrial' using driver `ESRI Shapefile'
     #> Simple feature collection with 42714 features and 27 fields
     #> geometry type:  MULTIPOLYGON
     #> dimension:      XY
@@ -95,8 +97,8 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr   min   lq mean median   uq max neval
-    #>  mammals 0.856 0.87  0.9  0.897 0.92   1    20
+    #>     expr   min    lq  mean median    uq  max neval
+    #>  mammals 0.779 0.803 0.869  0.826 0.866 1.46    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
