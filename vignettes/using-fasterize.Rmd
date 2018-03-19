@@ -11,7 +11,7 @@ vignette: >
 
 <!-- As fasterize is a small package, this vignette just copies over the major contents of the README, without badges -->
 
-**fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
+**fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**](https://cran.r-project.org/package=raster) package.
 
 Functionality is currently limited to rasterizing polygons in [**sf**](https://cran.r-project.org/package=sf)-type data frames.
 
