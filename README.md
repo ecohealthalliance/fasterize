@@ -4,7 +4,7 @@ fasterize
 
 Fast sf-to-raster conversion
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](vignettes/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize) [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize) [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 
 **fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
 
@@ -103,8 +103,8 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr   min    lq  mean median    uq  max neval
-    #>  mammals 0.864 0.897 0.925  0.908 0.948 1.02    20
+    #>     expr  min    lq  mean median    uq  max neval
+    #>  mammals 0.87 0.886 0.928  0.902 0.928 1.34    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
