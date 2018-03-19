@@ -18,3 +18,4 @@
 ^.*\.pdf$
 ^.test.cpp$
 ^\.github$
+^codemeta\.json$
