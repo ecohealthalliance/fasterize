@@ -5,10 +5,10 @@ Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org", role = c("aut", "cre")),
     person("Michael", "Sumner", role = "ctb"),
     person("EcoHealth Alliance", role="cph"))
-Description: Provides a drop-in replacement for 'raster::rasterize'
-   that takes 'sf-type' objects, and is much faster. There is support
-   for the main options provided by the 'rasterize' function, including
-   setting the field used and background value, and function for 
+Description: Provides a drop-in replacement for 'raster::rasterize()'
+   that takes 'sf'-type objects, and is much faster. There is support
+   for the main options provided by the 'rasterize()' function, including
+   setting the field used and background value, and options for 
    aggregating multi-layer rasters. 
 License: MIT + file LICENSE
 LazyData: true
