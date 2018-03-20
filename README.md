@@ -13,22 +13,24 @@ Functionality is currently limited to rasterizing polygons in [**sf**](https://c
 Installation
 ------------
 
-Install **fasterize** from CRAN. It requires [**sf**](https://cran.r-project.org/package=sf), which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), PROJ.4 (&gt;= 4.8.0) to be installed on your system.
+Install the current version of **fasterize** from CRAN:
 
 ``` r
 install.packages('fasterize')
 ```
 
-Install the development version of **fasterize** with [**devtools**](https://cran.r-project.org/package=devtools). **fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source.
+Install the development version of **fasterize** with [**devtools**](https://cran.r-project.org/package=devtools):
 
 ``` r
 devtools::install_github("ecohealthalliance/fasterize")
 ```
 
+**fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source. Testing (and most use) requires [**sf**](https://cran.r-project.org/package=sf), which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), PROJ.4 (&gt;= 4.8.0) to be installed on your system.
+
 Usage
 -----
 
-The main function, `fasterize()`, takes the same inputs as `raster::rasterize()` but currently has fewer options and is currently limited to rasterizing polygons.
+The main function, `fasterize()`, takes the same inputs as `raster::rasterize()` but currently has fewer options and is is limited to rasterizing polygons.
 
 A method for creating empty rasters from `sf` objects is provided, and raster plot methods are re-exported.
 
@@ -103,8 +105,8 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr   min    lq  mean median    uq  max neval
-    #>  mammals 0.855 0.862 0.907  0.877 0.904 1.14    20
+    #>     expr  min  lq mean median   uq  max neval
+    #>  mammals 1.12 1.2 1.43   1.34 1.49 2.26    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
