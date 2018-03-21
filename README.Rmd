@@ -28,7 +28,7 @@ Fast sf-to-raster conversion
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 
 **fasterize** is high-performance replacement for the `rasterize()` function
-in the [**raster**]() package.
+in the [**raster**](https://cran.r-project.org/package=raster) package.
 
 Functionality is currently limited to rasterizing polygons in [**sf**](https://cran.r-project.org/package=sf)-type
 data frames.
