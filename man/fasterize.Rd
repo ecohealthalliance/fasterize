@@ -49,8 +49,10 @@ Fast sf-to-raster conversion
 \details{
 This is a high-performance replacement for \code{\link[raster:rasterize]{raster::rasterize()}}.
 
-The algorithm is based on the method described in course materials by
-\href{https://labs.wsu.edu/wayne-cochran/}{Wayne O. Cochran}.
+The algorithm is based on the method described in course materials provided
+by \href{https://labs.wsu.edu/wayne-cochran/}{Wayne O. Cochran}. The algorithm
+is originally attributed to
+\href{https://dx.doi.org/10.1145/1465611.1465619}{Wylie et al. (1967)}.
 }
 \examples{
 library(sf)
@@ -65,4 +67,10 @@ pols <- st_sf(value = rep(1,3),
 r <- raster(pols, res = 1)
 r <- fasterize(pols, r, field = "value", fun="sum")
 plot(r)
+}
+\references{
+Wylie, C., Romney, G., Evans, D., & Erdahl, A. (1967).
+Half-tone perspective drawings by computer. Proceedings of the November
+14-16, 1967, Fall Joint Computer Conference. AFIPS '67 (Fall).
+\url{https://dx.doi.org/10.1145/1465611.1465619}
 }

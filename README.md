@@ -1,17 +1,30 @@
 
-fasterize
-=========
+# fasterize
 
 Fast sf-to-raster conversion
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/) [![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2) [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize) [![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![MIT Licensed - Copyright 2016 EcoHealth
+Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/)
+[![Linux Build
+Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize)
+[![Windows Build
+status](https://ci.appveyor.com/api/projects/status/3n59bs19ovex5d1t?svg=true)](https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2)
+[![Coverage
+Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize)
+[![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 
-**fasterize** is high-performance replacement for the `rasterize()` function in the [**raster**]() package.
+**fasterize** is high-performance replacement for the `rasterize()`
+function in the [**raster**]() package.
 
-Functionality is currently limited to rasterizing polygons in [**sf**](https://cran.r-project.org/package=sf)-type data frames.
+Functionality is currently limited to rasterizing polygons in
+[**sf**](https://cran.r-project.org/package=sf)-type data frames.
 
-Installation
-------------
+## Installation
 
 Install the current version of **fasterize** from CRAN:
 
@@ -19,20 +32,27 @@ Install the current version of **fasterize** from CRAN:
 install.packages('fasterize')
 ```
 
-Install the development version of **fasterize** with [**devtools**](https://cran.r-project.org/package=devtools):
+Install the development version of **fasterize** with
+[**devtools**](https://cran.r-project.org/package=devtools):
 
 ``` r
 devtools::install_github("ecohealthalliance/fasterize")
 ```
 
-**fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp) and thus requires a compile toolchain to install from source. Testing (and most use) requires [**sf**](https://cran.r-project.org/package=sf), which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), PROJ.4 (&gt;= 4.8.0) to be installed on your system.
+**fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp)
+and thus requires a compile toolchain to install from source. Testing
+(and most use) requires [**sf**](https://cran.r-project.org/package=sf),
+which requires GDAL (\>= 2.0.0), GEOS (\>= 3.3.0), and PROJ.4 (\>=
+4.8.0) to be installed on your system.
 
-Usage
------
+## Usage
 
-The main function, `fasterize()`, takes the same inputs as `raster::rasterize()` but currently has fewer options and is is limited to rasterizing polygons.
+The main function, `fasterize()`, takes the same inputs as
+`raster::rasterize()` but currently has fewer options and is is limited
+to rasterizing polygons.
 
-A method for creating empty rasters from `sf` objects is provided, and raster plot methods are re-exported.
+A method for creating empty rasters from `sf` objects is provided, and
+raster plot methods are re-exported.
 
 ``` r
 library(raster)
@@ -50,12 +70,11 @@ r <- fasterize(pols, r, field = "value", fun="sum")
 plot(r)
 ```
 
-![](vignettes/readme-example-1-1.png)
+![](vignettes/readme-example-1-1.png)<!-- -->
 
-Performance
------------
+## Performance
 
-Let's compare `fasterize()` to `raster::rasterize()`:
+Let’s compare `fasterize()` to `raster::rasterize()`:
 
 ``` r
 pols_r <- as(pols, "Spatial")
@@ -68,11 +87,14 @@ print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr     min      lq    mean  median      uq    max neval cld
-    #>  rasterize 342.486 379.028 426.959 404.759 434.029 859.01   100   b
-    #>  fasterize   0.337   0.368   0.499   0.413   0.636   2.02   100  a
+    #>       expr     min     lq    mean  median     uq    max neval cld
+    #>  rasterize 340.376 359.69 379.197 369.552 386.65 497.83   100   b
+    #>  fasterize   0.337   0.37   0.545   0.414   0.64   2.51   100  a
 
-How does `fasterize()` do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.
+How does `fasterize()` do on a large set of polygons? Here I download
+the IUCN shapefile for the ranges of all terrestrial mammals and
+generate a 1/6 degree world map of mammalian biodiversity by rasterizing
+all the layers.
 
 ``` r
 if(!dir.exists("Mammals_Terrestrial")) {
@@ -105,19 +127,23 @@ print(bench2, digits=3)
 ```
 
     #> Unit: seconds
-    #>     expr  min  lq mean median   uq  max neval
-    #>  mammals 1.12 1.2 1.43   1.34 1.49 2.26    20
+    #>     expr   min   lq mean median  uq max neval
+    #>  mammals 0.895 0.93 1.03  0.993 1.1 1.5    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
 
-![](vignettes/readme-so-damn-fast-1.png)
+![](vignettes/readme-so-damn-fast-1.png)<!-- -->
 
-About
------
+## About
 
-**fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance). Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+**fasterize** is developed openly at [EcoHealth
+Alliance](https://github.com/ecohealthalliance). Please note that this
+project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
+to abide by its
+terms.
 
 [![http://www.ecohealthalliance.org/](vignettes/eha-footer.png)](http://www.ecohealthalliance.org/)
