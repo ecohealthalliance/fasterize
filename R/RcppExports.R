@@ -7,8 +7,10 @@
 #'
 #' This is a high-performance replacement for [raster::rasterize()].
 #'
-#' The algorithm is based on the method described in course materials by
-#' [Wayne O. Cochran](https://labs.wsu.edu/wayne-cochran/).
+#' The algorithm is based on the method described in course materials provided
+#' by [Wayne O. Cochran](https://labs.wsu.edu/wayne-cochran/). The algorithm
+#' is originally attributed to
+#' [Wylie et al. (1967)](https://dx.doi.org/10.1145/1465611.1465619).
 #'
 #' @param sf an [sf::sf()] object with a geometry column of POLYGON and/or
 #' MULTIPOLYGON objects.
@@ -32,6 +34,10 @@
 #' as unique values of the `by` column.
 #' @return A raster of the same size, extent, resolution and projection as the
 #' provided raster template.
+#' @references Wylie, C., Romney, G., Evans, D., & Erdahl, A. (1967).
+#'   Half-tone perspective drawings by computer. Proceedings of the November
+#'   14-16, 1967, Fall Joint Computer Conference. AFIPS '67 (Fall).
+#'   <https://dx.doi.org/10.1145/1465611.1465619>
 #' @examples
 #' library(sf)
 #' library(fasterize)

@@ -11,16 +11,15 @@ setOldClass("sf")
 #' @param ... Additional arguments, see [raster::raster()] for more details.
 #' @aliases raster
 #' @importFrom sp CRS
-#' @importFrom sf st_bbox st_crs
 #' @importFrom raster origin extend crop extent
 #' @export
 setMethod('raster', signature(x='sf'),
           function(x, origin, ...){
-            bb <- sf::st_bbox(x)[c(1,3,2,4)]
+            bb <- attr(x[[attr(x, "sf_column")]], "bbox")[c("xmin", "xmax", "ymin", "ymax")]
             ext <- raster::extent(bb)
             r <- raster::raster(ext, ...)
 
-            r@crs <- CRS(sf::st_crs(x)[["proj4string"]])
+            r@crs <- CRS(attr(x[[attr(x, "sf_column")]], "crs")[["proj4string"]])
             if (!missing(origin)) {
               raster::origin(r) <- origin
               r <- raster::extend(r, 1)

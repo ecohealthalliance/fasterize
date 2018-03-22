@@ -13,6 +13,7 @@ dist: trusty
 cache: packages
 
 r_packages:
+- devtools
 - covr
 
 before_install:
