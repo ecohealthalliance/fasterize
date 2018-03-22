@@ -18,7 +18,7 @@ Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/ba
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 
-**fasterize** is high-performance replacement for the `rasterize()`
+**fasterize** is a high-performance replacement for the `rasterize()`
 function in the [**raster**](https://cran.r-project.org/package=raster)
 package.
 
@@ -129,7 +129,7 @@ print(bench2, digits=3)
 
     #> Unit: seconds
     #>     expr   min    lq  mean median    uq   max neval
-    #>  mammals 0.856 0.883 0.903  0.904 0.922 0.954    20
+    #>  mammals 0.856 0.869 0.887   0.88 0.902 0.955    20
 
 ``` r
 par(mar=c(0,0.5,0,0.5))
