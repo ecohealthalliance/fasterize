@@ -1,10 +1,10 @@
 Package: fasterize
 Title: Fast Polygon to Raster Conversion 
-Version: 1.0.0.9000
+Version: 1.0.1
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org",
            role = c("aut", "cre"),
-           comment=c(ORCID = "0000-0002-1642-628X")),
+           comment=c(ORCID = "0000-0002-2136-0000")),
     person("Michael", "Sumner", role = "ctb",
            comment=c(ORCID = "0000-0002-2471-7511")),
     person("EcoHealth Alliance", role="cph"))
