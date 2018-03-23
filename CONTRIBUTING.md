@@ -33,6 +33,7 @@ Things we want to do:
    `polygonize()` functions on a branch I will try to get up here soon.
 -  More aggregation functions
 -  Rasterization directly to (and from) out-of-memory formats.
+-  Expose the C++ API to make the low-level functions available for other uses.
 
 Things we don't want to do:
 
