@@ -43,8 +43,5 @@ Things we don't want to do:
    It's better to just use `raster::calc()` on a RasterStack.
 
 In general, speed and handling of very large objects is favored.  Fanatical tweaking
-is encouraged.  Even small operations, like type checking, are implemented in C++ for
-this reason. Profile and test your code.  On OSX, Instruments works well for this.  The alpha-stage [**gprofiler**](https://r-prof.github.io/gprofiler/) package does joint R/C(++)
+is encouraged.  Even small operations, like type checking, are implemented in C++ to reduce function overhead. Profile and test your code.  On OSX, Instruments works well for this.  The alpha-stage [**gprofiler**](https://r-prof.github.io/gprofiler/) package does joint R/C(++)
 code profiling.
-
-I
