@@ -152,8 +152,14 @@
     }
   ],
   "contIntegration": "https://travis-ci.org/ecohealthalliance/fasterize",
-  "developmentStatus": "[![Project Status: Active – The project has reached a stable, usable",
+  "developmentStatus": "active",
   "releaseNotes": "https://github.com/ecohealthalliance/fasterize/blob/master/NEWS.md",
   "readme": "https://github.com/ecohealthalliance/fasterize/blob/master/README.md",
-  "fileSize": "539.001KB"
+  "fileSize": "960.595KB",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Central R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  }
 }
