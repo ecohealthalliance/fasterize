@@ -15,7 +15,7 @@ void edgelist(Rcpp::RObject polygon, RasterInfo &ras, std::list<Edge> &edges) {
     //if the object is numeric, it an Nx2 matrix of polygon nodes.
     Rcpp::NumericMatrix poly(polygon);
     //Add edge to list if it's not horizontal and is in the raster
-    for(size_t i = 0; i < (poly.nrow() - 1); ++i) {
+    for(int i = 0; i < (poly.nrow() - 1); ++i) {
       y0 = (ras.ymax - poly(i, 1))/ras.yres - 0.5;
       y1 = (ras.ymax - poly(i+1, 1))/ras.yres - 0.5;
       if(y0 > 0 || y1 > 0) {  //only both with edges that are in the raster

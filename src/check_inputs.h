@@ -6,7 +6,7 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 
-void check_inputs(Rcpp::DataFrame &sf,
+extern void check_inputs(Rcpp::DataFrame &sf,
                     Rcpp::S4 &raster,
                     Rcpp::Nullable<std::string> field,
                     std::string fun,

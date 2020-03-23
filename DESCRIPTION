@@ -20,7 +20,7 @@ LazyData: true
 URL: https://github.com/ecohealthalliance/fasterize
 BugReports: https://github.com/ecohealthalliance/fasterize/issues
 RoxygenNote: 7.0.2
-SystemRequirements: C++17
+SystemRequirements: C++11
 Suggests: 
     testthat,
     microbenchmark,

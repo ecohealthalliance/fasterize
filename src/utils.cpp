@@ -8,7 +8,7 @@ Rcpp::CharacterVector as_character(const Rcpp::RObject vec) {
     Rcpp::IntegerVector ints(vec);
     Rcpp::StringVector levels = ints.attr("levels");
     Rcpp::CharacterVector out(ints.size());
-    for(size_t i = 0; i < ints.size(); i++) {
+    for(int i = 0; i < ints.size(); i++) {
       out[i] =
         (ints[i] == NA_INTEGER) ? NA_STRING : levels[ints[i] - 1];
     }

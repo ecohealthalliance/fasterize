@@ -8,7 +8,7 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 
-void rasterize_polygon(arma::mat &raster,
+extern void rasterize_polygon(arma::mat &raster,
                        Rcpp::RObject polygon,
                        double &value,
                        RasterInfo &ras,

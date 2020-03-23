@@ -3,5 +3,5 @@
 
 #include "edge.h"
 
-void edgelist(Rcpp::RObject polygon, RasterInfo &ras, std::list<Edge> &edges);
+extern void edgelist(Rcpp::RObject polygon, RasterInfo &ras, std::list<Edge> &edges);
 #endif

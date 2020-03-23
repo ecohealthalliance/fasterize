@@ -6,7 +6,7 @@
 // [[Rcpp::plugins(cpp11)]
 // [[Rcpp::depends(RcppArmadillo)]]
 
-Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
+extern Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
                    Rcpp::S4 &raster,
                    std::string field,
                    std::string fun,
