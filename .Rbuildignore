@@ -20,3 +20,4 @@
 ^\.github$
 ^codemeta\.json$
 ^cran-comments\.md$
+Dockerfile
