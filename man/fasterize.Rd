@@ -3,12 +3,16 @@
 \docType{package}
 \name{fasterize}
 \alias{fasterize}
-\alias{fasterize}
-\alias{fasterize-package}
 \title{Rasterize an sf object of polygons}
 \usage{
-fasterize(sf, raster, field = NULL, fun = "last", background = NA_real_,
-  by = NULL)
+fasterize(
+  sf,
+  raster,
+  field = NULL,
+  fun = "last",
+  background = NA_real_,
+  by = NULL
+)
 }
 \arguments{
 \item{sf}{an \code{\link[sf:sf]{sf::sf()}} object with a geometry column of POLYGON and/or
@@ -27,7 +31,7 @@ all polygons will be given a value of 1.}
 polygons. Currently takes "sum", "first", "last", "min", "max", "count", or
 "any".  Future versions may include more functions or the ability to pass
 custom R/C++ functions. If you need to summarize by a different function,
-use\code{by=} to get a RasterBrick and then \code{\link[raster:stackApply]{raster::stackApply()}} or
+use\verb{by=} to get a RasterBrick and then \code{\link[raster:stackApply]{raster::stackApply()}} or
 \code{\link[raster:calc]{raster::calc()}} to summarize.}
 
 \item{background}{numeric. Value to put in the cells that are not covered by

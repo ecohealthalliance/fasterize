@@ -138,4 +138,4 @@ About
 **fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance) under the USAID PREDICT project..
 
 [![https://www.ecohealthalliance.org/](eha-footer.png){ width=100% }](https://www.ecohealthalliance.org/)
-[![https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project](predictfooter.png){ width=100% }](http://www.vetmed.ucdavis.edu/ohi/predict/)
+[![https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project](predictfooter.png){ width=100% }](https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project)
