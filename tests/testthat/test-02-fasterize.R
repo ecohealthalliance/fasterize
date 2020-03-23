@@ -32,15 +32,6 @@ test_that("non-NA background values allowed", {
   expect_equal(f0@data@min, min(bg, min(pols$value)))
 })
 
-test_that("projections handled properly", {
-  invisible(capture.output(
-    nc <- st_read(system.file("shape/nc.shp", package="sf"))
-  ))
-  r1 <- raster(nc, res=0.1)
-  r_nc <- fasterize(nc, r1, field="AREA", fun="first")
-  expect_equal(st_crs(nc)$proj4string, proj4string(r_nc))
-})
-
 # Currently rounding differences between libraries (I think) cause these
 # failures.
 #
