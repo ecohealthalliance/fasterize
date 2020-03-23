@@ -116,5 +116,5 @@ plot(mammal_raster, axes=FALSE, box=FALSE)
 **fasterize** is developed openly at [EcoHealth Alliance](https://github.com/ecohealthalliance) under the USAID PREDICT project.
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-[![http://www.ecohealthalliance.org/](vignettes/eha-footer.png)](http://www.ecohealthalliance.org/)
-[![http://www.vetmed.ucdavis.edu/ohi/predict/](vignettes/predictfooter.png)](http://www.vetmed.ucdavis.edu/ohi/predict/)
+[![https://www.ecohealthalliance.org/](vignettes/eha-footer.png)](https://www.ecohealthalliance.org/)
+[![https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project](vignettes/predictfooter.png)](https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project)
