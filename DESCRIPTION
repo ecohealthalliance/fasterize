@@ -19,8 +19,8 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/ecohealthalliance/fasterize
 BugReports: https://github.com/ecohealthalliance/fasterize/issues
-RoxygenNote: 6.0.1
-SystemRequirements: C++11
+RoxygenNote: 7.0.2
+SystemRequirements: C++17
 Suggests: 
     testthat,
     microbenchmark,
