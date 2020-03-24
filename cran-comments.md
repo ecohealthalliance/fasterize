@@ -1,6 +1,6 @@
 ## Response to comments
 
-Update author and funder information. 
+Fixes warnings from gcc-10 compiler
 
 ## Test environments
 * local OS X install, R 3.4.4

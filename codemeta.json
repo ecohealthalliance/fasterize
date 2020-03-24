@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.4",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.4 (2018-03-15)",
+  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
   "author": [
     {
       "@type": "Person",
@@ -41,13 +41,15 @@
       "name": "EcoHealth Alliance"
     }
   ],
-  "maintainer": {
-    "@type": "Person",
-    "givenName": "Noam",
-    "familyName": "Ross",
-    "email": "ross@ecohealthalliance.org",
-    "@id": "https://orcid.org/0000-0002-2136-0000"
-  },
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Noam",
+      "familyName": "Ross",
+      "email": "ross@ecohealthalliance.org",
+      "@id": "https://orcid.org/0000-0002-2136-0000"
+    }
+  ],
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
@@ -56,9 +58,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     },
     {
       "@type": "SoftwareApplication",
@@ -67,9 +70,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=microbenchmark"
     },
     {
       "@type": "SoftwareApplication",
@@ -78,9 +82,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
     },
     {
       "@type": "SoftwareApplication",
@@ -89,9 +94,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
     {
       "@type": "SoftwareApplication",
@@ -100,12 +106,19 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
     }
   ],
   "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.3.0"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "methods",
@@ -118,9 +131,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
     },
     {
       "@type": "SoftwareApplication",
@@ -129,9 +143,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=raster"
     },
     {
       "@type": "SoftwareApplication",
@@ -140,26 +155,41 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sp"
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "R",
-      "name": "R",
-      "version": "3.3.0"
+      "identifier": "https://sysreqs.r-hub.io/get/cxx11"
     }
   ],
   "contIntegration": "https://travis-ci.org/ecohealthalliance/fasterize",
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ecohealthalliance/fasterize/blob/master/NEWS.md",
   "readme": "https://github.com/ecohealthalliance/fasterize/blob/master/README.md",
-  "fileSize": "960.595KB",
+  "fileSize": "379.281KB",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
     "name": "Central R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
-  }
+  },
+  "funder": [
+    {
+      "@type": "Organization",
+      "name": "USAID PREDICT"
+    }
+  ],
+  "keywords": [
+    "raster",
+    "sf",
+    "rstats",
+    "spatial",
+    "rcpp",
+    "rcpparmadillo",
+    "r"
+  ],
+  "relatedLink": "https://CRAN.R-project.org/package=fasterize"
 }
