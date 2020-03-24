@@ -1,6 +1,7 @@
 ## Response to comments
 
-Fixes warnings from gcc-10 compiler
+- Fixes warnings from gcc-10 compiler
+- Removed revdep checks from top-level dir
 
 ## Test environments
 * local OS X install, R 3.4.4

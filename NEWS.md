@@ -1,4 +1,4 @@
-# fasterize 1.0.1
+# fasterize 1.0.2
 
 * Modifies C code to comply with gcc-10 requirements
 

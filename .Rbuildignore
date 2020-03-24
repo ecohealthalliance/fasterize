@@ -20,4 +20,6 @@
 ^\.github$
 ^codemeta\.json$
 ^cran-comments\.md$
-Dockerfile
+^Dockerfile$
+^CRAN-RELEASE$
+^revdep$
