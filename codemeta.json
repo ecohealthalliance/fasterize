@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ecohealthalliance/fasterize",
   "issueTracker": "https://github.com/ecohealthalliance/fasterize/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -169,7 +169,7 @@
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ecohealthalliance/fasterize/blob/master/NEWS.md",
   "readme": "https://github.com/ecohealthalliance/fasterize/blob/master/README.md",
-  "fileSize": "379.281KB",
+  "fileSize": "377.211KB",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
