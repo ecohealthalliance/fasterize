@@ -19,7 +19,7 @@ setMethod('raster', signature(x='sf'),
             ext <- raster::extent(bb)
             r <- raster::raster(ext, ...)
 
-            r@crs <- CRS(attr(x[[attr(x, "sf_column")]], "crs")[["proj4string"]])
+            r@crs <- CRS(attr(x[[attr(x, "sf_column")]], "crs")$proj4string)
             if (!missing(origin)) {
               raster::origin(r) <- origin
               r <- raster::extend(r, 1)
