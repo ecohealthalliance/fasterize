@@ -8,9 +8,15 @@ cache: packages
 
 addons:
   apt:
+    update: true
     sources:
-      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
+      - sourceline: 'ppa:ubuntugis/ppa'
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
       - libudunits2-dev
       - libproj-dev
       - libgeos-dev
+      - libgdal-dev
+      - libgsl0-dev
+      - bwidget
+      - gcc
