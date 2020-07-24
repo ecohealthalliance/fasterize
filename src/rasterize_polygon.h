@@ -1,7 +1,6 @@
 #ifndef RASTERIZE_POLYGON
 #define RASTERIZE_POLYGON
 
-#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "pixelfn.h"
