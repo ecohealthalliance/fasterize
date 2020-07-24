@@ -1,6 +1,6 @@
 Package: fasterize
 Title: Fast Polygon to Raster Conversion 
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org",
            role = c("aut", "cre"),
