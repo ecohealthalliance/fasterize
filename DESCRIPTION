@@ -1,6 +1,6 @@
 Package: fasterize
 Title: Fast Polygon to Raster Conversion 
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org",
            role = c("aut", "cre"),
@@ -19,7 +19,7 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/ecohealthalliance/fasterize
 BugReports: https://github.com/ecohealthalliance/fasterize/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 SystemRequirements: C++11
 Suggests: 
     testthat,
@@ -38,4 +38,5 @@ LinkingTo:
     Rcpp,
     RcppArmadillo
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
 VignetteBuilder: knitr

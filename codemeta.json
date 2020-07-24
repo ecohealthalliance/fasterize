@@ -10,14 +10,13 @@
   "codeRepository": "https://github.com/ecohealthalliance/fasterize",
   "issueTracker": "https://github.com/ecohealthalliance/fasterize/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
+  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
   "author": [
     {
       "@type": "Person",
@@ -165,11 +164,11 @@
       "identifier": "https://sysreqs.r-hub.io/get/cxx11"
     }
   ],
-  "contIntegration": "https://travis-ci.org/ecohealthalliance/fasterize",
-  "developmentStatus": "active",
+  "contIntegration": ["https://travis-ci.org/ecohealthalliance/fasterize", "https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2", "https://codecov.io/gh/ecohealthalliance/fasterize"],
+  "developmentStatus": "http://www.repostatus.org/#active",
   "releaseNotes": "https://github.com/ecohealthalliance/fasterize/blob/master/NEWS.md",
   "readme": "https://github.com/ecohealthalliance/fasterize/blob/master/README.md",
-  "fileSize": "377.211KB",
+  "fileSize": "6099.069KB",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",

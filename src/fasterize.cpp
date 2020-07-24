@@ -1,4 +1,3 @@
-#define ARMA_64BIT_WORD  //required to support arma vectors > 2GB
 #include <RcppArmadillo.h>
 #include "edge.h"
 #include "check_inputs.h"
@@ -34,7 +33,7 @@
 //' polygons. Currently takes "sum", "first", "last", "min", "max", "count", or
 //' "any".  Future versions may include more functions or the ability to pass
 //' custom R/C++ functions. If you need to summarize by a different function,
-//' use`by=` to get a RasterBrick and then [raster::stackApply()] or
+//' use `by=` to get a RasterBrick and then [raster::stackApply()] or
 //' [raster::calc()] to summarize.
 //' @param background numeric. Value to put in the cells that are not covered by
 //' any of the features of x. Default is NA.
