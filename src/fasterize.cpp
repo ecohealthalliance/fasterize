@@ -106,6 +106,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     //Create the output values in the raster slot but share memory with
     //Armadillo array for operations
     Rcpp::S4 rasterdata(raster1.slot("data"));
+    Rcpp::S4 rasterfile(raster1.slot("file"));
     rasterdata.slot("values") =
       Rcpp::NumericMatrix(ras.nrow * ras.ncol, n_layers);
     arma::cube raster_array(
@@ -135,6 +136,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     }
 
     //Fill in the empty cells
+    rasterfile.slot("name") = "";
     rasterdata.slot("nlayers") = n_layers;
     rasterdata.slot("names") = layernames;
     //Update other raster slots
@@ -165,6 +167,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     Rcpp::S4 raster1 = Rcpp::clone(raster);
     n_layers = 1;
     Rcpp::S4 rasterdata(raster1.slot("data"));
+    Rcpp::S4 rasterfile(raster1.slot("file"));
     rasterdata.slot("values") =
       Rcpp::NumericVector(ras.nrow * ras.ncol * n_layers);
     arma::cube raster_array(
@@ -186,6 +189,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
     }
 
     //Update other raster slots
+    rasterfile.slot("name") = "";
     rasterdata.slot("min") = raster_array.min();
     rasterdata.slot("max") = raster_array.max();
     rasterdata.slot("inmemory") = true;
