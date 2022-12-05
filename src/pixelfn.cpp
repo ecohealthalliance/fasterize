@@ -12,7 +12,7 @@ typedef void (*PixelFn)(arma::mat &raster, arma::uword x, arma::uword y, double 
 void sumvalues(arma::mat &raster, arma::uword x, arma::uword y, double &value) {
   raster.at(y, x) =
     //it's probably dangerous to use Rcpp::internal
-    (Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) |
+    (Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) ||
       Rcpp::internal::Rcpp_IsNA(value)) ?
       value : (raster.at(y, x) + value);
 }
@@ -31,14 +31,14 @@ void lastvalues(arma::mat &raster, arma::uword x, arma::uword y, double &value) 
 
 //Only set the value if it is smaller than current
 void minvalues(arma::mat &raster, arma::uword x, arma::uword y, double &value) {
-  if(Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) | (raster.at(y, x) > value)) {
+  if(Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) || (raster.at(y, x) > value)) {
     raster.at(y, x) = value;
   }
 }
 
 //Only set the value if it is larger than current
 void maxvalues(arma::mat &raster, arma::uword x, arma::uword y, double &value) {
-  if(Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) | (raster.at(y, x) < value)) {
+  if(Rcpp::internal::Rcpp_IsNA(raster.at(y, x)) || (raster.at(y, x) < value)) {
     raster.at(y, x) = value;
   }
 }

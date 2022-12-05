@@ -16,10 +16,9 @@ Description: Provides a drop-in replacement for rasterize() from the 'raster'
    aggregating multi-layer rasters. Uses the scan line algorithm attributed to
    Wylie et al. (1967) <doi:10.1145/1465611.1465619>.
 License: MIT + file LICENSE
-LazyData: true
 URL: https://github.com/ecohealthalliance/fasterize
 BugReports: https://github.com/ecohealthalliance/fasterize/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 SystemRequirements: C++11
 Suggests: 
     testthat,
