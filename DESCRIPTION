@@ -1,12 +1,14 @@
 Package: fasterize
 Title: Fast Polygon to Raster Conversion 
-Version: 1.0.3
+Version: 1.0.3.9001
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org",
-           role = c("aut", "cre"),
+           role = c("aut"),
            comment=c(ORCID = "0000-0002-2136-0000")),
-    person("Michael", "Sumner", role = "ctb",
+    person("Michael", "Sumner",, "mdsumner@gmail.com", role = c("cre", "ctb"),
            comment=c(ORCID = "0000-0002-2471-7511")),
+    person("Jeroen", "Ooms", role = "ctb"),
+    person("Antoine", "Stevens", role = "ctb"),
     person("EcoHealth Alliance", role="cph"),
     person("USAID PREDICT", role = "fnd"))
 Description: Provides a drop-in replacement for rasterize() from the 'raster'
