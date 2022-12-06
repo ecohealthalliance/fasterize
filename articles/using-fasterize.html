@@ -153,11 +153,30 @@ provided, and raster plot methods are re-exported.</p>
 <span><span class="co">#&gt;       expr     min     lq    mean  median     uq    max neval cld</span></span>
 <span><span class="co">#&gt;  rasterize 340.376 359.69 379.197 369.552 386.65 497.83   100   b</span></span>
 <span><span class="co">#&gt;  fasterize   0.337   0.37   0.545   0.414   0.64   2.51   100  a</span></span></code></pre>
+<p>Note that even with terra, it’s still faster.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pols_v</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">pols_r</span><span class="op">)</span></span>
+<span><span class="va">rt</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+<span><span class="va">bench</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
+<span>  terra_rasterize <span class="op">=</span> <span class="va">r0</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rasterize.html" class="external-link">rasterize</a></span><span class="op">(</span><span class="va">pols_v</span>, <span class="va">rt</span>, field <span class="op">=</span> <span class="st">"value"</span>, fun<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span>,</span>
+<span>  fasterize <span class="op">=</span> <span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fasterize.html">fasterize</a></span><span class="op">(</span><span class="va">pols</span>, <span class="va">r</span>, field <span class="op">=</span> <span class="st">"value"</span>, fun<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"ms"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bench</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<p>#&gt; Unit: milliseconds #&gt; expr min lq mean median uq max neval
+cld #&gt; rasterize 6.148 6.939 7.66 7.22 7.45 50.5 100 b #&gt;
+fasterize 0.875 0.931 1.19 0.97 1.00 21.4 100 a</p>
+<p>We can do even better if we don’t <em>materialize</em> the pixel
+values and simply use the created index in efficient ways - but
+currently, we have to actually allocate the entire raster so there’s a
+simple memory limit there (and we’re always using double floating point
+type). Please see the Issues on the project respository and the
+CONTRIBUTING.md if you are interested.</p>
 <p>How does <code><a href="../reference/fasterize.html">fasterize()</a></code> do on a large set of polygons? Here
 I download the IUCN shapefile for the ranges of all terrestrial mammals
 and generate a 1/6 degree world map of mammalian biodiversity by
 rasterizing all the layers.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="st">"Mammals_Terrestrial"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span>
 <span>    <span class="st">"https://s3.amazonaws.com/hp3-shapefiles/Mammals_Terrestrial.zip"</span>,</span>
@@ -165,7 +184,7 @@ rasterizing all the layers.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="st">"Mammals_Terrestrial.zip"</span>, exdir <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"Mammals_Terrestrial.zip"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mammal_shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"Mammals_Terrestrial"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Reading layer `Mammals_Terrestrial' from data source `/Users/noamross/dropbox-eha/projects-eha/fasterize/Mammals_Terrestrial' using driver `ESRI Shapefile'</span></span>
 <span><span class="co">#&gt; Simple feature collection with 42714 features and 27 fields</span></span>
@@ -174,7 +193,7 @@ rasterizing all the layers.</p>
 <span><span class="co">#&gt; bbox:           xmin: -180 ymin: -85.58276 xmax: 180 ymax: 89.99999</span></span>
 <span><span class="co">#&gt; epsg (SRID):    4326</span></span>
 <span><span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mammal_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/raster-sf-method.html">raster</a></span><span class="op">(</span><span class="va">mammal_shapes</span>, res <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="va">bench2</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
 <span>  mammals <span class="op">=</span> <span class="va">mammal_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fasterize.html">fasterize</a></span><span class="op">(</span><span class="va">mammal_shapes</span>, <span class="va">mammal_raster</span>, fun<span class="op">=</span><span class="st">"sum"</span><span class="op">)</span>,</span>
@@ -183,7 +202,7 @@ rasterizing all the layers.</p>
 <pre><code><span><span class="co">#&gt; Unit: seconds</span></span>
 <span><span class="co">#&gt;     expr   min    lq  mean median    uq   max neval</span></span>
 <span><span class="co">#&gt;  mammals 0.856 0.869 0.887   0.88 0.902 0.955    20</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.5</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mammal_raster</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, box<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="readme-so-damn-fast-1.png"><!-- --></p>
