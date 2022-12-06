@@ -1,22 +1,25 @@
 {
-  "@context": [
-    "http://purl.org/codemeta/2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "fasterize",
-  "description": "Provides a drop-in replacement for rasterize() from the 'raster'\n   package that takes 'sf'-type objects, and is much faster. There is support\n   for the main options provided by the rasterize() function, including\n   setting the field used and background value, and options for \n   aggregating multi-layer rasters. Uses the scan line algorithm attributed to\n   Wylie et al. (1967) <doi:10.1145/1465611.1465619>.",
+  "description": "Provides a drop-in replacement for rasterize() from the 'raster' package that takes 'sf'-type objects, and is much faster. There is support for the main options provided by the rasterize() function, including setting the field used and background value, and options for aggregating multi-layer rasters. Uses the scan line algorithm attributed to Wylie et al. (1967) <doi:10.1145/1465611.1465619>.",
   "name": "fasterize: Fast Polygon to Raster Conversion ",
   "codeRepository": "https://github.com/ecohealthalliance/fasterize",
   "issueTracker": "https://github.com/ecohealthalliance/fasterize/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -31,7 +34,18 @@
       "@type": "Person",
       "givenName": "Michael",
       "familyName": "Sumner",
+      "email": "mdsumner@gmail.com",
       "@id": "https://orcid.org/0000-0002-2471-7511"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jeroen",
+      "familyName": "Ooms"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Antoine",
+      "familyName": "Stevens"
     }
   ],
   "copyrightHolder": [
@@ -40,13 +54,19 @@
       "name": "EcoHealth Alliance"
     }
   ],
+  "funder": [
+    {
+      "@type": "Organization",
+      "name": "USAID PREDICT"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Noam",
-      "familyName": "Ross",
-      "email": "ross@ecohealthalliance.org",
-      "@id": "https://orcid.org/0000-0002-2136-0000"
+      "givenName": "Michael",
+      "familyName": "Sumner",
+      "email": "mdsumner@gmail.com",
+      "@id": "https://orcid.org/0000-0002-2471-7511"
     }
   ],
   "softwareSuggestions": [
@@ -109,21 +129,33 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=sf"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.3.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
@@ -135,7 +167,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Rcpp"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
@@ -147,7 +179,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "sp",
       "name": "sp",
@@ -159,36 +191,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sp"
     },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "https://sysreqs.r-hub.io/get/cxx11"
-    }
-  ],
-  "contIntegration": ["https://travis-ci.org/ecohealthalliance/fasterize", "https://ci.appveyor.com/project/NoamRoss/fasterize-7kxl2", "https://codecov.io/gh/ecohealthalliance/fasterize"],
-  "developmentStatus": "http://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/ecohealthalliance/fasterize/blob/master/NEWS.md",
-  "readme": "https://github.com/ecohealthalliance/fasterize/blob/master/README.md",
-  "fileSize": "6099.069KB",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Central R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
+    "SystemRequirements": "C++11"
   },
-  "funder": [
-    {
-      "@type": "Organization",
-      "name": "USAID PREDICT"
-    }
-  ],
-  "keywords": [
-    "raster",
-    "sf",
-    "rstats",
-    "spatial",
-    "rcpp",
-    "rcpparmadillo",
-    "r"
-  ],
-  "relatedLink": "https://CRAN.R-project.org/package=fasterize"
+  "fileSize": "19162.002KB"
 }

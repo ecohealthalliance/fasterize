@@ -24,16 +24,18 @@ submitting your change.
 **fasterize** aims to be limited in scope, lightweight in code and dependencies,
 easy to maintain, and fast as hell.  It's limited to operations converting vector
 to raster and raster to vector data, in C++, with minimum memory
-use or function overhead, dealing with only sf and raster/stars formats. Conversion to other vector/raster types and or within-type processing should be handled elsewhere so as not to impose overhead on the core functions.
+use or function overhead, dealing with only {sf} and {raster} format. This might change to become more "standard library" like, and just operate on basic inputs with dense output.  Conversion to other vector/raster types and or within-type processing can be handled elsewhere so that we can just have a focussed tool doing a task. 
 
 Things we want to do:
 
+
 -  Rasterization of lines and points.
--  Converstion of rasters to shapes.  I have half-finished `contourize()` and
-   `polygonize()` functions on a branch I will try to get up here soon.
+-  Conversion of rasters to shapes.  There are half-finished `contourize()` and
+   `polygonize()` functions on a branch that might be resurrected.
 -  More aggregation functions
 -  Rasterization directly to (and from) out-of-memory formats.
 -  Expose the C++ API to make the low-level functions available for other uses.
+- cell abstraction mode, this is advanced in the package hypertidy/controlledburn on github, this can increase the size of raster used without allocating pixels, provides a very dense indexed version of the polygon or line burn itself, and facilitates separating the pixel allocation from the algorithm itself (so that format, matrix, terra, stars, raster, GeoTIFF, ff becomes inconsequential and optional)
 
 Things we don't want to do:
 

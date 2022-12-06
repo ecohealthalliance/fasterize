@@ -27,7 +27,8 @@ Suggests:
     microbenchmark,
     knitr,
     rmarkdown,
-    sf
+    sf,
+    spelling
 Depends:
     R (>= 3.3.0)
 Imports:
@@ -41,3 +42,4 @@ LinkingTo:
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
+Language: en-US
