@@ -1,5 +1,7 @@
 # fasterize 1.0.4
 
+* Fixes a number of -Wconversion warnings (uword/double from edge.h, and int/size_t from edgelist.cpp) listed in #46. 
+
 * Fixes CRAN warnings on incorrect use of bitwise logical operator #44. 
 
 * Fixes CRAN warnings on unused LazyData property. 
