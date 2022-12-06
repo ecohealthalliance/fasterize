@@ -10,13 +10,15 @@ void edgelist(Rcpp::RObject polygon, RasterInfo &ras, std::list<Edge> &edges) {
   double y0, y1, y0c, y1c;
   //unsigned long, else as int in for loop it's changing sign -Wconversion
   size_t i; 
+  size_t nr_poly;
   //iterate recursively over the list
   switch(polygon.sexp_type()) {
   case REALSXP: {
     //if the object is numeric, it an Nx2 matrix of polygon nodes.
     Rcpp::NumericMatrix poly(polygon);
+    nr_poly = static_cast<size_t>(poly.nrow() - 1);
     //Add edge to list if it's not horizontal and is in the raster
-    for(i = 0; i < (poly.nrow() - 1); ++i) {
+    for(i = 0; i < nr_poly; ++i) {
       y0 = (ras.ymax - poly(i, 1))/ras.yres - 0.5;
       y1 = (ras.ymax - poly(i+1, 1))/ras.yres - 0.5;
       if(y0 > 0 || y1 > 0) {  //only both with edges that are in the raster
