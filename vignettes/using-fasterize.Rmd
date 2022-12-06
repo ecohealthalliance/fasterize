@@ -85,6 +85,30 @@ print(bench, digits = 3)
     #>  rasterize 340.376 359.69 379.197 369.552 386.65 497.83   100   b
     #>  fasterize   0.337   0.37   0.545   0.414   0.64   2.51   100  a
 
+
+Note that even with terra, it's still faster. 
+
+``` r
+pols_v <- terra::vect(pols_r)
+rt <- terra::rast(r)
+bench <- microbenchmark::microbenchmark(
+  terra_rasterize = r0 <- terra::rasterize(pols_v, rt, field = "value", fun="sum"),
+  fasterize = f <- fasterize(pols, r, field = "value", fun="sum"),
+  unit = "ms"
+)
+print(bench, digits = 3)
+```
+
+
+   #>  Unit: milliseconds
+   #>      expr   min    lq mean median   uq  max neval cld
+   #> rasterize 6.148 6.939 7.66   7.22 7.45 50.5   100   b
+   #> fasterize 0.875 0.931 1.19   0.97 1.00 21.4   100  a 
+ 
+ 
+We can do even better if we don't *materialize* the pixel values and simply use the created index in efficient ways - but currently, we have to actually allocate the entire raster so there's a simple memory limit there (and we're always using double floating point type). Please see the Issues on the project respository and the CONTRIBUTING.md if you are interested. 
+
+
 How does `fasterize()` do on a large set of polygons? Here I download
 the IUCN shapefile for the ranges of all terrestrial mammals and
 generate a 1/6 degree world map of mammalian biodiversity by rasterizing
