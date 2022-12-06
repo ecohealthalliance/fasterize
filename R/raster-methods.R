@@ -20,6 +20,7 @@ setMethod('raster', signature(x='sf'),
             r <- raster::raster(ext, ...)
 
             r@crs <- CRS(attr(x[[attr(x, "sf_column")]], "crs")$proj4string)
+            print("this was fasterize")
             if (!missing(origin)) {
               raster::origin(r) <- origin
               r <- raster::extend(r, 1)

@@ -27,9 +27,8 @@ Fast sf-to-raster conversion
   [![R-CMD-check](https://github.com/ecohealthalliance/fasterize/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ecohealthalliance/fasterize/actions/workflows/R-CMD-check.yaml)
   [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![MIT Licensed - Copyright 2016 EcoHealth Alliance](https://img.shields.io/badge/license-MIT-blue.svg)](https://badges.mit-license.org/)
-[![Linux Build Status](https://travis-ci.org/ecohealthalliance/fasterize.svg?branch=master)](https://travis-ci.org/ecohealthalliance/fasterize)
 [![Coverage Status](https://codecov.io/gh/ecohealthalliance/fasterize/branch/master/graph/badge.svg)](https://codecov.io/gh/ecohealthalliance/fasterize)
-[![](http://www.r-pkg.org/badges/version/fasterize)](http://www.r-pkg.org/pkg/fasterize)
+[![CRAN status](https://www.r-pkg.org/badges/version/fasterize)](https://CRAN.R-project.org/package=fasterize)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/fasterize)](http://www.r-pkg.org/pkg/fasterize)
 <!-- badges: end -->
   
@@ -105,9 +104,10 @@ if(!dir.exists("Mammals_Terrestrial")) {
   unzip("Mammals_Terrestrial.zip", exdir = ".")
   unlink("Mammals_Terrestrial.zip")
 }
+
 ```
 
-```{r so-damn-fast, cache=FALSE}
+```{r so-damn-fast, cache=FALSE, eval=FALSE}
 mammal_shapes <- st_read("Mammals_Terrestrial")
 mammal_raster <- raster(mammal_shapes, res = 1/6)
 bench2 <- microbenchmark::microbenchmark(
@@ -117,6 +117,16 @@ print(bench2, digits=3)
 par(mar=c(0,0.5,0,0.5))
 plot(mammal_raster, axes=FALSE, box=FALSE)
 ```
+
+
+    #> Unit: seconds
+    #>     expr   min    lq  mean median    uq   max neval
+    #>  mammals 0.847 0.857 0.883  0.886 0.894 0.963    20
+
+
+
+![](vignettes/readme-so-damn-fast-1.png)
+
 
 ## About
 
