@@ -18,7 +18,7 @@ struct RasterInfo {
     ymax = extent.slot("ymax");
     nrow = raster.slot("nrows");
     ncol = raster.slot("ncols");
-    ncold = ncol;
+    ncold = static_cast<double>(ncol);
 
     if(raster.slot("rotated")) {
       Rcpp::stop("No current support for rotated rasters.");
@@ -27,8 +27,8 @@ struct RasterInfo {
       // xres = geotrans[2];
       // yres = geotrans[4];
     } else {
-    xres = (xmax - xmin)/ncol;
-    yres = (ymax - ymin)/nrow;
+    xres = (xmax - xmin)/ncold;
+    yres = (ymax - ymin)/static_cast<double>(nrow);
     }
   }
 };
@@ -50,15 +50,15 @@ struct Edge {
 
     //Make sure edges run from top of matrix to bottom, calculate value
     if(y1c > y0c) {
-      ystart = std::max(y0c, 0.0);
+      ystart = static_cast<arma::uword>(std::max(y0c, 0.0));
       dxdy = (x1-x0)/(y1-y0);
-      x = x0 + (ystart - y0)*dxdy;
-      yend = y1c;
+      x = x0 + (static_cast<double>(ystart) - y0)*dxdy;
+      yend = static_cast<arma::uword>(y1c);
     } else {
-      ystart = std::max(y1c, 0.0);
+      ystart = static_cast<arma::uword>(std::max(y1c, 0.0));
       dxdy = (x0-x1)/(y0-y1);
-      x = x1 + (ystart - y1)*dxdy;
-      yend = y0c;
+      x = x1 + (static_cast<double>(ystart) - y1)*dxdy;
+      yend = static_cast<arma::uword>(y0c);
     }
   }
 };
