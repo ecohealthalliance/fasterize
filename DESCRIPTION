@@ -34,7 +34,7 @@ Depends:
 Imports:
     methods,
     Rcpp,
-    raster,
+    raster (>= 2.8-3),
     sp
 LinkingTo:
     Rcpp,
