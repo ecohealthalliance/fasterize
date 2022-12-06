@@ -32,10 +32,8 @@ Suggests:
 Depends:
     R (>= 3.3.0)
 Imports:
-    methods,
     Rcpp,
-    raster (>= 2.8-3),
-    sp
+    raster (>= 2.8-3)
 LinkingTo:
     Rcpp,
     RcppArmadillo
