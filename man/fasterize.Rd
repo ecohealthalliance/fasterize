@@ -56,7 +56,7 @@ This is a high-performance replacement for \code{\link[raster:rasterize]{raster:
 The algorithm is based on the method described in course materials provided
 by \href{https://labs.wsu.edu/wayne-cochran/}{Wayne O. Cochran}. The algorithm
 is originally attributed to
-\href{https://dx.doi.org/10.1145/1465611.1465619}{Wylie et al. (1967)}.
+Wylie et al. (1967) \doi{10.1145/1465611.1465619}.
 }
 \examples{
 library(sf)
@@ -76,5 +76,5 @@ plot(r)
 Wylie, C., Romney, G., Evans, D., & Erdahl, A. (1967).
 Half-tone perspective drawings by computer. Proceedings of the November
 14-16, 1967, Fall Joint Computer Conference. AFIPS '67 (Fall).
-\url{https://dx.doi.org/10.1145/1465611.1465619}
+\doi{10.1145/1465611.1465619}
 }

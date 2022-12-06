@@ -1,4 +1,4 @@
-# fasterize dev
+# fasterize 1.0.4
 
 * Fixes CRAN warnings on incorrect use of bitwise logical operator #44. 
 
