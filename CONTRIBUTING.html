@@ -70,13 +70,14 @@
 <li>We aim for testing that has high coverage and is robust. Include tests with any major contribution to code. Test your changes the package with <a href="https://github.com/MangoTheCat/goodpractice" class="external-link"><strong>goodpractice</strong></a> before submitting your change.</li>
 </ul><div class="section level2">
 <h2 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a></h2>
-<p><strong>fasterize</strong> aims to be limited in scope, lightweight in code and dependencies, easy to maintain, and fast as hell. It’s limited to operations converting vector to raster and raster to vector data, in C++, with minimum memory use or function overhead, dealing with only sf and raster/stars formats. Conversion to other vector/raster types and or within-type processing should be handled elsewhere so as not to impose overhead on the core functions.</p>
+<p><strong>fasterize</strong> aims to be limited in scope, lightweight in code and dependencies, easy to maintain, and fast as hell. It’s limited to operations converting vector to raster and raster to vector data, in C++, with minimum memory use or function overhead, dealing with only {sf} and {raster} format. This might change to become more “standard library” like, and just operate on basic inputs with dense output. Conversion to other vector/raster types and or within-type processing can be handled elsewhere so that we can just have a focussed tool doing a task.</p>
 <p>Things we want to do:</p>
 <ul><li>Rasterization of lines and points.</li>
-<li>Converstion of rasters to shapes. I have half-finished <code>contourize()</code> and <code>polygonize()</code> functions on a branch I will try to get up here soon.</li>
+<li>Conversion of rasters to shapes. There are half-finished <code>contourize()</code> and <code>polygonize()</code> functions on a branch that might be resurrected.</li>
 <li>More aggregation functions</li>
 <li>Rasterization directly to (and from) out-of-memory formats.</li>
 <li>Expose the C++ API to make the low-level functions available for other uses.</li>
+<li>cell abstraction mode, this is advanced in the package hypertidy/controlledburn on github, this can increase the size of raster used without allocating pixels, provides a very dense indexed version of the polygon or line burn itself, and facilitates separating the pixel allocation from the algorithm itself (so that format, matrix, terra, stars, raster, GeoTIFF, ff becomes inconsequential and optional)</li>
 </ul><p>Things we don’t want to do:</p>
 <ul><li>Dependency on GDAL or other libraries that need to be installed out of R</li>
 <li>Plotting functions</li>
