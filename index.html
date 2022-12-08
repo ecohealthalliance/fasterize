@@ -99,13 +99,13 @@
 <p>Install the development version of <strong>fasterize</strong> with <a href="https://cran.r-project.org/package=devtools" class="external-link"><strong>devtools</strong></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ecohealthalliance/fasterize"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>fasterize</strong> uses <a href="https://cran.r-project.org/package=Rcpp" class="external-link"><strong>Rcpp</strong></a> and thus requires a compile toolchain to install from source. Testing (and most use) requires <a href="https://cran.r-project.org/package=sf" class="external-link"><strong>sf</strong></a>, which requires GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0), and PROJ.4 (&gt;= 4.8.0) to be installed on your system.</p>
+<p><strong>fasterize</strong> uses <a href="https://cran.r-project.org/package=Rcpp" class="external-link"><strong>Rcpp</strong></a> and thus requires a compile toolchain to install from source. Testing (and for normal use of sf objects) requires <a href="https://cran.r-project.org/package=sf" class="external-link"><strong>sf</strong></a>, which requires GDAL, GEOS, and PROJ to be installed.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>The main function, <code><a href="reference/fasterize.html">fasterize()</a></code>, takes the same inputs as <code><a href="https://rdrr.io/pkg/terra/man/rasterize.html" class="external-link">raster::rasterize()</a></code> but currently has fewer options and is is limited to rasterizing polygons.</p>
-<p>A method for creating empty rasters from <code>sf</code> objects is provided, and raster plot methods are re-exported.</p>
+<p>A <code><a href="reference/raster.html">raster()</a></code> and <code><a href="reference/plot.html">plot()</a></code> methods for rasters are re-exported from the <a href="https://cran.r-project.org/package=raster" class="external-link">raster package</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster" class="external-link">raster</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ecohealthalliance/fasterize" class="external-link">fasterize</a></span><span class="op">)</span></span>
@@ -138,6 +138,7 @@
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       expr      min       lq     mean   median      uq     max neval cld</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rasterize 1033.587 1110.270 1136.372 1128.716 1152.55 1523.47   100   b</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fasterize    0.696    0.872    0.959    0.924    0.99    1.42   100  a</span></span></code></pre></div>
+<p>It’s also quite a bit faster than terra, see the vignette.</p>
 <p>How does <code><a href="reference/fasterize.html">fasterize()</a></code> do on a large set of polygons? Here I download the IUCN shapefile for the ranges of all terrestrial mammals and generate a 1/6 degree world map of mammalian biodiversity by rasterizing all the layers.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.exists</a></span><span class="op">(</span><span class="st">"Mammals_Terrestrial"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
