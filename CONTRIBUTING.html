@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fasterize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4.9002</span>
       </span>
     </div>
 
@@ -69,6 +69,11 @@
 </li>
 <li>We aim for testing that has high coverage and is robust. Include tests with any major contribution to code. Test your changes the package with <a href="https://github.com/MangoTheCat/goodpractice" class="external-link"><strong>goodpractice</strong></a> before submitting your change.</li>
 </ul><div class="section level2">
+<h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+<ul><li>we import raster &gt;= 2.8.3 as that was when sf was supported by raster() <a href="https://github.com/rspatial/raster/blame/332bc98bd6edbd7fd64fce2e8c64dea77597dff4/DESCRIPTION" class="external-link uri">https://github.com/rspatial/raster/blame/332bc98bd6edbd7fd64fce2e8c64dea77597dff4/DESCRIPTION</a>
+</li>
+</ul></div>
+<div class="section level2">
 <h2 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a></h2>
 <p><strong>fasterize</strong> aims to be limited in scope, lightweight in code and dependencies, easy to maintain, and fast as hell. It’s limited to operations converting vector to raster and raster to vector data, in C++, with minimum memory use or function overhead, dealing with only {sf} and {raster} format. This might change to become more “standard library” like, and just operate on basic inputs with dense output. Conversion to other vector/raster types and or within-type processing can be handled elsewhere so that we can just have a focussed tool doing a task.</p>
 <p>Things we want to do:</p>
