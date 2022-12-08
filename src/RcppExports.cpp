@@ -12,13 +12,13 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fasterize
-Rcpp::S4 fasterize(Rcpp::DataFrame& sf, Rcpp::S4& raster, Rcpp::Nullable<std::string> field, std::string fun, double background, Rcpp::Nullable<std::string> by);
+Rcpp::S4 fasterize(Rcpp::DataFrame& sf, SEXP& raster, Rcpp::Nullable<std::string> field, std::string fun, double background, Rcpp::Nullable<std::string> by);
 RcppExport SEXP _fasterize_fasterize(SEXP sfSEXP, SEXP rasterSEXP, SEXP fieldSEXP, SEXP funSEXP, SEXP backgroundSEXP, SEXP bySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::DataFrame& >::type sf(sfSEXP);
-    Rcpp::traits::input_parameter< Rcpp::S4& >::type raster(rasterSEXP);
+    Rcpp::traits::input_parameter< SEXP& >::type raster(rasterSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<std::string> >::type field(fieldSEXP);
     Rcpp::traits::input_parameter< std::string >::type fun(funSEXP);
     Rcpp::traits::input_parameter< double >::type background(backgroundSEXP);

@@ -3,7 +3,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 void check_inputs(Rcpp::DataFrame &sf,
-                    Rcpp::S4 &raster,
+                    SEXP &raster,
                     Rcpp::Nullable<std::string> field,
                     std::string fun,
                     double background,
@@ -24,6 +24,22 @@ void check_inputs(Rcpp::DataFrame &sf,
     err_msg << "sf geometry must be POLYGON or MULTIPOLYGON" << std::endl;
   }
 
+  bool okraster = false;
+  if (Rf_inherits(raster, "BasicRaster")) {
+    okraster = true;
+  } else {
+    if (Rf_inherits(raster, "numeric")) {
+      if (LENGTH(raster) == 6) {
+        if ((REAL(raster)[1] > REAL(raster)[0]) && 
+            (REAL(raster)[3] > REAL(raster)[2]) && REAL(raster)[4] >= 1 && REAL(raster)[5] >= 1) {
+          okraster = true;
+        }
+      }
+    }
+  }
+  if (!okraster) {
+    Rcpp::stop("malformed raster specification");
+  }
   if(field.isNotNull()) {
     field_vals = sf[Rcpp::as<std::string>(field.get())];
   } else {

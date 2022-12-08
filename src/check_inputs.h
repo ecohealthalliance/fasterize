@@ -6,7 +6,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 extern void check_inputs(Rcpp::DataFrame &sf,
-                    Rcpp::S4 &raster,
+                    SEXP &raster,
                     Rcpp::Nullable<std::string> field,
                     std::string fun,
                     double background,

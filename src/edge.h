@@ -10,14 +10,24 @@ struct RasterInfo {
   double xmin, xmax, ymin, ymax, xres, yres, ncold;
   arma::uword nrow, ncol;
 
-  RasterInfo(Rcpp::S4 raster) {
-    Rcpp::S4 extent = raster.slot("extent");
+  RasterInfo(SEXP &raster) {
+    if (Rf_inherits(raster, "BasicRaster")) {
+    Rcpp::S4 extent = raster->slot("extent");
     xmin = extent.slot("xmin");
     xmax = extent.slot("xmax");
     ymin = extent.slot("ymin");
     ymax = extent.slot("ymax");
     nrow = raster.slot("nrows");
     ncol = raster.slot("ncols");
+    } else {
+      xmin = REAL(raster)[0];
+      xmax = REAL(raster)[0];
+      ymin = REAL(raster)[0];
+      ymax = REAL(raster)[0];
+      nrow = (arma::uword)REAL(raster)[0];
+      ncol = (arma::uword)REAL(raster)[0];
+      
+    }
     ncold = static_cast<double>(ncol);
 
     if(raster.slot("rotated")) {

@@ -62,7 +62,7 @@
 //' @export
 // [[Rcpp::export]]
 Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
-                   Rcpp::S4 &raster,
+                   SEXP &raster,
                    Rcpp::Nullable<std::string> field = R_NilValue,
                    std::string fun = "last",
                    double background = NA_REAL,
@@ -77,7 +77,7 @@ Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
   Rcpp::List::iterator p;
   Rcpp::NumericVector::iterator f;
 
-  RasterInfo ras(raster);
+  RasterInfo ras(&raster);
   PixelFn pixel_function = set_pixelfn(fun);
   arma::uword n_layers;
   //  If there is a `by` argument, we calculate unique values and set up

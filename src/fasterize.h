@@ -6,7 +6,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 extern Rcpp::S4 fasterize(Rcpp::DataFrame &sf,
-                   Rcpp::S4 &raster,
+                   SEXP &raster,
                    std::string field,
                    std::string fun,
                    double background,
