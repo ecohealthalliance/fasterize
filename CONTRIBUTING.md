@@ -18,6 +18,9 @@ their permission) for most contributions that go beyond small typos in code or d
    any major contribution to code. Test your changes the package with [**goodpractice**](https://github.com/MangoTheCat/goodpractice) before
 submitting your change.
 
+## Details
+
+- we import raster >= 2.8.3 as that was when sf was supported by raster() https://github.com/rspatial/raster/blame/332bc98bd6edbd7fd64fce2e8c64dea77597dff4/DESCRIPTION
 
 ## Roadmap
 
