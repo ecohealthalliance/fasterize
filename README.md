@@ -43,9 +43,9 @@ devtools::install_github("ecohealthalliance/fasterize")
 
 **fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp)
 and thus requires a compile toolchain to install from source. Testing
-(and most use) requires [**sf**](https://cran.r-project.org/package=sf),
-which requires GDAL (\>= 2.0.0), GEOS (\>= 3.3.0), and PROJ.4 (\>=
-4.8.0) to be installed on your system.
+(and for normal use of sf objects) requires
+[**sf**](https://cran.r-project.org/package=sf), which requires GDAL,
+GEOS, and PROJ to be installed.
 
 ## Usage
 
@@ -53,8 +53,8 @@ The main function, `fasterize()`, takes the same inputs as
 `raster::rasterize()` but currently has fewer options and is is limited
 to rasterizing polygons.
 
-A method for creating empty rasters from `sf` objects is provided, and
-raster plot methods are re-exported.
+A `raster()` and `plot()` methods for rasters are re-exported from the
+[raster package](https://cran.r-project.org/package=raster).
 
 ``` r
 library(raster)
@@ -92,6 +92,8 @@ print(bench, digits = 3)
     #>       expr      min       lq     mean   median      uq     max neval cld
     #>  rasterize 1033.587 1110.270 1136.372 1128.716 1152.55 1523.47   100   b
     #>  fasterize    0.696    0.872    0.959    0.924    0.99    1.42   100  a
+
+It’s also quite a bit faster than terra, see the vignette.
 
 How does `fasterize()` do on a large set of polygons? Here I download
 the IUCN shapefile for the ranges of all terrestrial mammals and

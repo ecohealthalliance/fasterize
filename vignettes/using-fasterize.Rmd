@@ -1,6 +1,6 @@
 ---
 title: "Using Fasterize"
-author: "Noam Ross"
+author: "Noam Ross, Michael Sumner"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -36,8 +36,7 @@ devtools::install_github("ecohealthalliance/fasterize")
 **fasterize** uses [**Rcpp**](https://cran.r-project.org/package=Rcpp)
 and thus requires a compile toolchain to install from source. Testing
 (and most use) requires [**sf**](https://cran.r-project.org/package=sf),
-which requires GDAL (\>= 2.0.0), GEOS (\>= 3.3.0), and PROJ.4 (\>=
-4.8.0) to be installed on your system.
+which requires GDAL, GEOS, and PROJ to be installed on your system.
 
 ## Usage
 
@@ -45,8 +44,7 @@ The main function, `fasterize()`, takes the same inputs as
 `raster::rasterize()` but currently has fewer options and is is limited
 to rasterizing polygons.
 
-A method for creating empty rasters from `sf` objects is provided, and
-raster plot methods are re-exported.
+The raster `raster()` and `plot()` methods are re-exported.
 
 ``` r
 library(raster)
@@ -100,16 +98,16 @@ print(bench, digits = 3)
 ```
 
 
-   #>  Unit: milliseconds
-   #>      expr   min    lq mean median   uq  max neval cld
-   #> rasterize 6.148 6.939 7.66   7.22 7.45 50.5   100   b
-   #> fasterize 0.875 0.931 1.19   0.97 1.00 21.4   100  a 
+    #> Unit: milliseconds
+    #>      expr   min    lq mean median   uq  max neval cld
+    #> rasterize 6.148 6.939 7.66   7.22 7.45 50.5   100   b
+    #> fasterize 0.875 0.931 1.19   0.97 1.00 21.4   100  a 
  
  
 We can do even better if we don't *materialize* the pixel values and simply use the created index in efficient ways - but currently, we have to actually allocate the entire raster so there's a simple memory limit there (and we're always using double floating point type). Please see the Issues on the project respository and the CONTRIBUTING.md if you are interested. 
 
 
-How does `fasterize()` do on a large set of polygons? Here I download
+How does `fasterize()` do on a large set of polygons? Here download
 the IUCN shapefile for the ranges of all terrestrial mammals and
 generate a 1/6 degree world map of mammalian biodiversity by rasterizing
 all the layers.
