@@ -1,3 +1,7 @@
+# fasterize dev
+
+* Removed raster raster() method, not needed (raster handles sf now to obtain the 6 numbers and a string). 
+
 # fasterize 1.0.4
 
 * New maintainer Michael Sumner. 
