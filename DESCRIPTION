@@ -4,7 +4,7 @@ Version: 1.0.4.9002
 Authors@R: c(
     person("Noam", "Ross", , "ross@ecohealthalliance.org",
            role = c("aut"),
-           comment=c(ORCID = "0000-0002-2136-0000")),
+           comment=c("Original author", ORCID = "0000-0002-2136-0000")),
     person("Michael", "Sumner",, "mdsumner@gmail.com", role = c("cre", "ctb"),
            comment=c(ORCID = "0000-0002-2471-7511")),
     person("Jeroen", "Ooms", role = "ctb"),
