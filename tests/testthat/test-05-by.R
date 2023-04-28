@@ -17,16 +17,17 @@ r1 <- raster(pols, res=1)
 
 test_that("'by' argument works", {
   expect_error(
-    rb <-fasterize(pols, r1, field="value", fun="sum", by ="by_1"),NA)
+    rb <-fasterize(pols, r1, field="value", fun="sum", by ="by_1"), NA)
   expect_equal(names(rb), unique(pols$by_1))
   expect_equal(ncol(rb@data@values), length(unique(pols$by_1)))
 })
 
 test_that("'by' layers are equivalent to layers generated separately", {
   rba <- fasterize(pols, r1, field="value", fun="sum", by ="value")
-  for(i in nrow(pols))
+  for(i in 1:nrow(pols)) {
   expect_equal(as.raster(rba[[i]]),
                as.raster(fasterize(pols[i,], r1, field="value", fun="sum")))
+  }
 })
 
 test_that("'by' can handle non-character fields", {

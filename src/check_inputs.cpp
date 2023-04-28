@@ -20,7 +20,7 @@ void check_inputs(Rcpp::DataFrame &sf,
   polygons = sf[Rcpp::as<std::string>(sf.attr("sf_column"))];
 
   if(!(Rf_inherits(polygons, "sfc_MULTIPOLYGON") |
-       Rf_inherits(polygons, "sfc_POLYGON"))) {
+       Rf_inherits(polygons, "sfc_POLYGON") | Rf_inherits(polygons, "sfc_GEOMETRY"))) {
     err_msg << "sf geometry must be POLYGON or MULTIPOLYGON" << std::endl;
   }
 

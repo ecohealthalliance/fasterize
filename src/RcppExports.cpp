@@ -11,9 +11,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// fasterize
-Rcpp::S4 fasterize(Rcpp::DataFrame& sf, Rcpp::S4& raster, Rcpp::Nullable<std::string> field, std::string fun, double background, Rcpp::Nullable<std::string> by);
-RcppExport SEXP _fasterize_fasterize(SEXP sfSEXP, SEXP rasterSEXP, SEXP fieldSEXP, SEXP funSEXP, SEXP backgroundSEXP, SEXP bySEXP) {
+// fasterize_cpp
+Rcpp::S4 fasterize_cpp(Rcpp::DataFrame& sf, Rcpp::S4& raster, Rcpp::Nullable<std::string> field, std::string fun, double background, Rcpp::Nullable<std::string> by);
+RcppExport SEXP _fasterize_fasterize_cpp(SEXP sfSEXP, SEXP rasterSEXP, SEXP fieldSEXP, SEXP funSEXP, SEXP backgroundSEXP, SEXP bySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,13 +23,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type fun(funSEXP);
     Rcpp::traits::input_parameter< double >::type background(backgroundSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<std::string> >::type by(bySEXP);
-    rcpp_result_gen = Rcpp::wrap(fasterize(sf, raster, field, fun, background, by));
+    rcpp_result_gen = Rcpp::wrap(fasterize_cpp(sf, raster, field, fun, background, by));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fasterize_fasterize", (DL_FUNC) &_fasterize_fasterize, 6},
+    {"_fasterize_fasterize_cpp", (DL_FUNC) &_fasterize_fasterize_cpp, 6},
     {NULL, NULL, 0}
 };
 

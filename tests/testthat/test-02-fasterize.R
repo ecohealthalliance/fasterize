@@ -15,6 +15,7 @@ test_that("raster sf method works", {
   expect_s4_class(r, 'RasterLayer')
 })
 
+
 test_that("fasterize works", {
   r <- raster(pols, res = 1)
   expect_error(f <- fasterize(pols, r, field = "value", fun="sum"), NA)
@@ -73,6 +74,6 @@ test_that("error thrown for malformed polygon", {
   pols_err <- pols
   pols_err$geometry[[2]][[1]] <- as.character(pols_err$geometry[[2]][[1]])
   expect_error(f <- fasterize(pols_err, r, field = "value", fun="sum"),
-               "incompatible SEXP; only accepts lists and REALSXPs")
+               "REAL\\() can only be applied to a 'numeric', not a 'character'")
 
 })

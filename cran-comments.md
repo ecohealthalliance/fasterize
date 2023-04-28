@@ -1,12 +1,8 @@
-## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+# fasterize 1.0.5
 
-* Submitted by new maintainer, Michael Sumner (mdsumner@gmail.com), change from Noam Ross (ross@ecohealthalliance.org) as advised by email. 
-
-* Fixes CRAN warnings on bitwise operator and unused LazyData.
-
-* Fixes implicit type warnings found with clang. 
+* Fixes for roxygen namespace documentation and remove specific C++11 requirement. 
 
 
 
+Thanks! 
