@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasterize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
       </span>
     </div>
 
@@ -57,6 +57,14 @@
       <small>Source: <a href="https://github.com/ecohealthalliance/fasterize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.5" id="fasterize-105">fasterize 1.0.5<a class="anchor" aria-label="anchor" href="#fasterize-105"></a></h2>
+<ul><li><p>Input geometries may now be of type “sfc_GEOMETRY” or other mixed types. Any non polygon geometry is dropped with a message.</p></li>
+<li><p>‘field’ may now be a numeric, integer, or factor vector or (as before) a name of a column in the input data frame. This means we can <code>fasterize(vec, r, field = seq_along(vec))</code> or <code>fasterize(df, r, field = seq_len(dim(df)[1L]))</code> or with any values we like.</p></li>
+<li><p>Now supporting any geometry or dataframe input supported by wk (wkb, wkt, geos, as well as sf).</p></li>
+<li><p>Namespaced documentation fixes thanks to CRAN.</p></li>
+<li><p>Removed raster raster() method, not needed (raster handles sf now to obtain the 6 numbers and a string).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.4" id="fasterize-104">fasterize 1.0.4<small>2022-12-06</small><a class="anchor" aria-label="anchor" href="#fasterize-104"></a></h2>
 <ul><li><p>New maintainer Michael Sumner.</p></li>
