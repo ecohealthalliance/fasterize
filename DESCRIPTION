@@ -12,7 +12,7 @@ Authors@R: c(
     person("EcoHealth Alliance", role="cph"),
     person("USAID PREDICT", role = "fnd"))
 Description: Provides a drop-in replacement for rasterize() from the 'raster'
-   package that takes polygon vector or dataframe objects, and is much faster. 
+   package that takes polygon vector or data frame objects, and is much faster. 
    There is support for the main options provided by the rasterize() function, 
    including setting the field used and background value, and options for 
    aggregating multi-layer rasters. Uses the scan line algorithm attributed to
