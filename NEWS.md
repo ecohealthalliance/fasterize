@@ -1,3 +1,7 @@
+# fasterize 1.1.0
+
+* Cleaned up old spelling detritus in tests, thanks to CRAN. 
+
 # fasterize 1.0.5
 
 * Input geometries may now be of type "sfc_GEOMETRY" or other mixed types. Any non polygon

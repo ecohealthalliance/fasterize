@@ -25,7 +25,7 @@ an polygon dataset.}
 \item{field}{character (or numeric vector). The name of a column in \code{sf},
 providing a value for each of the polygons rasterized. If NULL (default),
 all polygons will be given a value of 1.  If a numeric vector this value
-will be used as the value given to the pixel.   (No recyling is done).}
+will be used as the value given to the pixel.   (No recycling is done).}
 
 \item{fun}{character. The name of a function by which to combine overlapping
 polygons. Currently takes "sum", "first", "last", "min", "max", "count", or

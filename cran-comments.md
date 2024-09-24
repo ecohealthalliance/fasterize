@@ -1,8 +1,7 @@
 
-# fasterize 1.0.5
+# fasterize 1.1.0
 
-* Fixes for roxygen namespace documentation and remove specific C++11 requirement. 
-
+* Fixed detritus in test directory causing notes on CRAN.  
 
 
 Thanks! 

@@ -28,7 +28,7 @@ make_sf <- function(x, attr = NULL) {
 #' @param field character (or numeric vector). The name of a column in `sf`,
 #' providing a value for each of the polygons rasterized. If NULL (default),
 #' all polygons will be given a value of 1.  If a numeric vector this value
-#' will be used as the value given to the pixel.   (No recyling is done). 
+#' will be used as the value given to the pixel.   (No recycling is done). 
 #' @param fun character. The name of a function by which to combine overlapping
 #' polygons. Currently takes "sum", "first", "last", "min", "max", "count", or
 #' "any".  Future versions may include more functions or the ability to pass
