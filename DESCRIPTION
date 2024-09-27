@@ -26,7 +26,6 @@ Suggests:
     microbenchmark,
     knitr,
     rmarkdown,
-    sf,
     spelling,
     geos
 Depends:

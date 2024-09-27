@@ -16,5 +16,6 @@ AutoAppendNewline: Yes
 
 BuildType: Package
 PackageInstallArgs: --no-multiarch --with-keep.source
+PackageBuildArgs: --no-build-vignettes
 PackageCheckArgs: --as-cran --no-manual
 PackageRoxygenize: rd,collate,namespace

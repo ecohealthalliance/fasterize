@@ -18,21 +18,4 @@ Useful links:
 }
 
 }
-\author{
-\strong{Maintainer}: Michael Sumner \email{mdsumner@gmail.com} (\href{https://orcid.org/0000-0002-2471-7511}{ORCID}) [contributor]
-
-Authors:
-\itemize{
-  \item Noam Ross \email{ross@ecohealthalliance.org} (\href{https://orcid.org/0000-0002-2136-0000}{ORCID}) (Original author)
-}
-
-Other contributors:
-\itemize{
-  \item Jeroen Ooms [contributor]
-  \item Antoine Stevens [contributor]
-  \item EcoHealth Alliance [copyright holder]
-  \item USAID PREDICT [funder]
-}
-
-}
 \keyword{internal}
