@@ -1,30 +1,27 @@
 
 context("fasterize")
-suppressPackageStartupMessages(library(sf))
-suppressPackageStartupMessages(library(raster))
-p1 <- rbind(c(-180,-20), c(-140,55), c(10, 0), c(-140,-60), c(-180,-20))
-hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))
-p1 <- list(p1, hole)
-p2 <- list(rbind(c(-10,0), c(140,60), c(160,0), c(140,-55), c(-10,0)))
-p3 <- list(rbind(c(-125,0), c(0,60), c(40,5), c(15,-45), c(-125,0)))
-pols <- st_sf(value = c(1,2,3),
-              geometry = st_sfc(lapply(list(p1, p2, p3), st_polygon)))
 
-test_that("raster sf method works", {
-  r <- raster(pols, res = 1)
-  expect_s4_class(r, 'RasterLayer')
-})
+suppressPackageStartupMessages(library(raster))
+library(wk)
+pols_df <- structure(list(feature_id = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, 3L, 3L, 3L), 
+                          part_id = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, 3L, 3L, 3L), 
+                          ring_id = c(1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L,  3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 4L), 
+                          x = c(-180, -140, 10, -140,  -180, -150, -100, -110, -150, -10, 140, 160, 140, -10, -125, 0, 40, 15, -125), 
+                          y = c(-20, 55, 0, -60, -20, -20, -10, 20, -20, 0, 60, 0, -55, 0, 0, 60, 5, -45, 0)), row.names = c(NA, 19L), class = "data.frame")
+pols_df$xy <- wk::xy(pols_df$x, pols_df$y)
+pols <- data.frame(value = 1:3, geometry = wk::wk_polygon(pols_df, feature_id = pols_df$feature_id, ring_id = pols_df$ring_id, part_id = pols_df$part_id))
+ex <- as.numeric(wk::wk_bbox(pols))[c(1, 3, 2, 4)]
+r <- raster::raster(raster::extent(ex), res = 1)
 
 
 test_that("fasterize works", {
-  r <- raster(pols, res = 1)
+
   expect_error(f <- fasterize(pols, r, field = "value", fun="sum"), NA)
   expect_error(f <- fasterize(pols, r, fun="sum"), NA)
   expect_s4_class(f, 'RasterLayer')
 })
 
 test_that("non-NA background values allowed", {
-  r <- raster(pols, res = 1)
   bg <- 20
   expect_error(
     f0 <- fasterize(pols, r, field = "value", fun="last", background = bg), NA)
@@ -69,11 +66,4 @@ test_that("values are correct when polygons extend beyond raster", {
   # plot(f1c != f2 | is.na(f1c) != is.na(f2))
 })
 
-test_that("error thrown for malformed polygon", {
-  r <- raster(pols, res = 1)
-  pols_err <- pols
-  pols_err$geometry[[2]][[1]] <- as.character(pols_err$geometry[[2]][[1]])
-  expect_error(f <- fasterize(pols_err, r, field = "value", fun="sum"),
-               "REAL\\() can only be applied to a 'numeric', not a 'character'")
 
-})

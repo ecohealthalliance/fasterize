@@ -95,18 +95,6 @@ Rcpp::S4 fasterize_cpp(Rcpp::DataFrame &sf,
     rasterdata.slot("fromdisk") = false;
     rasterdata.slot("haveminmax") = true;
 
-    // new sf only stores ()$input and ()$wkt so we have no basis to grab
-    // a PROJ.4 string from that, just assume they are the same
-    // - this wrongly would *assign* the sf projection to the raster if it
-    // was not NA before MDSumner 2020-03-02
-    // Rcpp::CharacterVector sfproj4 =
-    //   Rcpp::as<Rcpp::StringVector>(
-    //     Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]
-    //   );
-    // if(sfproj4[0] != NA_STRING) {
-    //   Rcpp::S4 rcrs(raster1.slot("crs"));
-    //   rcrs.slot("projargs") = sfproj4;
-    // }
 
     return raster1;
 
@@ -146,14 +134,6 @@ Rcpp::S4 fasterize_cpp(Rcpp::DataFrame &sf,
     rasterdata.slot("haveminmax") = true;
     rasterdata.slot("names") = "layer";
 
-    // Rcpp::CharacterVector sfproj4 =
-    //   Rcpp::as<Rcpp::StringVector>(
-    //     Rcpp::as<Rcpp::List>(polygons.attr("crs"))["proj4string"]
-    //   );
-    // if(sfproj4[0] != NA_STRING) {
-    //   Rcpp::S4 rcrs(raster1.slot("crs"));
-    //   rcrs.slot("projargs") = sfproj4;
-    // }
 
     return raster1;
   }

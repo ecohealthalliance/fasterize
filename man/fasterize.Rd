@@ -61,16 +61,15 @@ now works for any polygon vector (sfc, wkt, wkb, geos) or dataframe with a polyg
 supported by the wk package handlers.
 }
 \examples{
-library(sf)
+library(wk)
 library(fasterize)
-p1 <- rbind(c(-180,-20), c(-140,55), c(10, 0), c(-140,-60), c(-180,-20))
-hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))
-p1 <- list(p1, hole)
-p2 <- list(rbind(c(-10,0), c(140,60), c(160,0), c(140,-55), c(-10,0)))
-p3 <- list(rbind(c(-125,0), c(0,60), c(40,5), c(15,-45), c(-125,0)))
-pols <- st_sf(value = rep(1,3),
-              geometry = st_sfc(lapply(list(p1, p2, p3), st_polygon)))
-r <- raster(pols, res = 1)
+p123 <- c(paste0("POLYGON ((-180 -20, -140 55, 10 0, -140 -60, -180 -20),", 
+                 "(-150 -20, -100 -10, -110 20, -150 -20))"), 
+            "POLYGON ((-10 0, 140 60, 160 0, 140 -55, -10 0))", 
+            "POLYGON ((-125 0, 0 60, 40 5, 15 -45, -125 0))")
+pols <- data.frame(value = seq_along(p123), geometry = wk::as_wkt(p123))
+ex <- as.numeric(wk_bbox(pols))[c(1, 3, 2, 4)]
+r <- raster::raster(raster::extent(ex), res = 1)
 r <- fasterize(pols, r, field = "value", fun="sum")
 plot(r)
 }
