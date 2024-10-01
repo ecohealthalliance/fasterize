@@ -1,7 +1,8 @@
 
 # fasterize
 
-Fast sf-to-raster conversion
+Fast polygon-to-raster conversion, burn polygon shapes and/or values
+into pixels.
 
 <!-- badges: start -->
 
@@ -59,15 +60,15 @@ A `raster()` and `plot()` methods for rasters are re-exported from the
 ``` r
 library(raster)
 library(fasterize)
-library(sf)
-p1 <- rbind(c(-180,-20), c(-140,55), c(10, 0), c(-140,-60), c(-180,-20))
-hole <- rbind(c(-150,-20), c(-100,-10), c(-110,20), c(-150,-20))
-p1 <- list(p1, hole)
-p2 <- list(rbind(c(-10,0), c(140,60), c(160,0), c(140,-55), c(-10,0)))
-p3 <- list(rbind(c(-125,0), c(0,60), c(40,5), c(15,-45), c(-125,0)))
-pols <- st_sf(value = c(1,2,3),
-             geometry = st_sfc(lapply(list(p1, p2, p3), st_polygon)))
-r <- raster(pols, res = 1)
+library(wk)
+library(fasterize)
+p123 <- c(paste0("POLYGON ((-180 -20, -140 55, 10 0, -140 -60, -180 -20),", 
+                  "(-150 -20, -100 -10, -110 20, -150 -20))"), 
+             "POLYGON ((-10 0, 140 60, 160 0, 140 -55, -10 0))", 
+             "POLYGON ((-125 0, 0 60, 40 5, 15 -45, -125 0))")
+pols <- data.frame(value = seq_along(p123), geometry = wk::as_wkt(p123))
+ex <- as.numeric(wk_bbox(pols))[c(1, 3, 2, 4)]
+r <- raster::raster(raster::extent(ex), res = 1)
 r <- fasterize(pols, r, field = "value", fun="sum")
 plot(r)
 ```
@@ -76,29 +77,36 @@ plot(r)
 
 ## Performance
 
-Let’s compare `fasterize()` to `raster::rasterize()`:
+Let’s compare `fasterize()` to `terra::rasterize()`:
 
 ``` r
-pols_r <- as(pols, "Spatial")
+pols_t <- terra::vect(p123)
+pols_t$value <- 1:3
+#pols_r <-  as(pols_t, "Spatial")
+tr <- terra::rast(r)
+
 bench <- microbenchmark::microbenchmark(
-  rasterize = r <- raster::rasterize(pols_r, r, field = "value", fun="sum"),
+ # rasterize = r <- raster::rasterize(pols_r, r, field = "value", fun="sum"),
+  terrarize = tr <- terra::rasterize(pols_t, tr, field = "value", fun = "sum"),
   fasterize = f <- fasterize(pols, r, field = "value", fun="sum"),
   unit = "ms"
 )
+
 print(bench, digits = 3)
 ```
 
     #> Unit: milliseconds
-    #>       expr      min       lq     mean   median      uq     max neval cld
-    #>  rasterize 1033.587 1110.270 1136.372 1128.716 1152.55 1523.47   100   b
-    #>  fasterize    0.696    0.872    0.959    0.924    0.99    1.42   100  a
-
-It’s also quite a bit faster than terra, see the vignette.
+    #>       expr   min    lq  mean median    uq   max neval cld
+    #>  terrarize 22.76 25.13 28.90  25.80 26.85 205.1   100  a 
+    #>  fasterize  1.83  2.12  2.56   2.46  2.56  19.4   100   b
 
 How does `fasterize()` do on a large set of polygons? Here I download
 the IUCN shapefile for the ranges of all terrestrial mammals and
 generate a 1/6 degree world map of mammalian biodiversity by rasterizing
 all the layers.
+
+(this doesn’t work anymore because the source data is gone, left as a
+record 2024-09-25).
 
 ``` r
 if(!dir.exists("Mammals_Terrestrial")) {
@@ -129,11 +137,12 @@ plot(mammal_raster, axes=FALSE, box=FALSE)
 
 ## About
 
-**fasterize** is developed openly at [EcoHealth
+**fasterize** was developed openly at [EcoHealth
 Alliance](https://github.com/ecohealthalliance) under the USAID PREDICT
-project. Please note that this project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
+project.  
+In Please note that this project is released with a [Contributor Code of
+Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree
+to abide by its terms.
 
 [![https://www.ecohealthalliance.org/](vignettes/eha-footer.png)](https://www.ecohealthalliance.org/)
 [![https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project](vignettes/predictfooter.png)](https://ohi.vetmed.ucdavis.edu/programs-projects/predict-project)
